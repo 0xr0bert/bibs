@@ -21,8 +21,9 @@
 
 using namespace BIBS;
 
-Behaviour::Behaviour(const std::string name)
-    : Behaviour::Behaviour(name, boost::uuids::random_generator_mt19937()()) {}
+IBehaviour::IBehaviour(const std::string name)
+    : IBehaviour::IBehaviour(name, boost::uuids::random_generator_mt19937()()) {
+}
 
-Behaviour::Behaviour(const std::string name, boost::uuids::uuid uuid)
+IBehaviour::IBehaviour(const std::string name, boost::uuids::uuid uuid)
     : name(name), uuid(uuid) {}

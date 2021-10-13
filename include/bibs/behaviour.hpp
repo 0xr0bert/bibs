@@ -32,10 +32,8 @@
 #include <string>
 
 namespace BIBS {
-/**
- * A behaviour which can be performed.
- */
-class Behaviour {
+
+class IBehaviour {
 public:
   /**
    * The name of the behaviour.
@@ -48,11 +46,16 @@ public:
   const boost::uuids::uuid uuid;
 
   /**
+   * Destruct IBehaviour.
+   */
+  virtual ~IBehaviour() {}
+
+  /**
    * Creates a new behaviour.
    *
    * @param name The name of the new behaviour.
    */
-  Behaviour(const std::string name);
+  IBehaviour(const std::string name);
 
   /**
    * Creates a new behaviour
@@ -60,7 +63,14 @@ public:
    * @param name The name of the new behaviour.
    * @param uuid The UUID of the new behaviour.
    */
-  Behaviour(const std::string name, const boost::uuids::uuid uuid);
+  IBehaviour(const std::string name, const boost::uuids::uuid uuid);
+};
+
+/**
+ * A behaviour which can be performed.
+ */
+class Behaviour : public IBehaviour {
+  using IBehaviour::IBehaviour;
 };
 } // namespace BIBS
 
