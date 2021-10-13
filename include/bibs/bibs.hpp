@@ -28,6 +28,15 @@
 #ifndef BIBS_BIBS_H
 #define BIBS_BIBS_H
 
+#include <cstdint>
+
+namespace BIBS {
+/**
+ * Time in the simulations -- ticks since start.
+ */
+typedef uint32_t sim_time_t;
+} // namespace BIBS
+
 /**
  * @brief Square root a number.
  * @details Square roots n.
