@@ -15,6 +15,16 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+/**
+ * @file      behaviour.hpp
+ * @brief     Header of behaviour.cpp
+ * @date      Wed Oct 13 15:27:09 2021
+ * @author    Robert Greener
+ * @copyright GPL-3.0-or-later
+ *
+ * This module contains a single Behaviour class.
+ */
+
 #ifndef BIBS_BEHAVIOUR_H
 #define BIBS_BEHAVIOUR_H
 
