@@ -33,6 +33,9 @@
 
 namespace BIBS {
 
+/**
+ * The interface for a behaviour which can be performed
+ */
 class IBehaviour {
 public:
   /**
