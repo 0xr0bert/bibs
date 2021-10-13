@@ -17,6 +17,7 @@
 boost_dep = dependency('boost')
 
 bibs_sources = [
+  'agent.cpp',
   'bibs.cpp',
   'behaviour.cpp',
   'belief.cpp']
