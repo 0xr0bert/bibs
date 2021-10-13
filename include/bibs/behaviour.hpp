@@ -22,7 +22,7 @@
  * @author    Robert Greener
  * @copyright GPL-3.0-or-later
  *
- * This module contains a single Behaviour class.
+ * This module contains a single Behaviour class and an IBehaviour interface.
  */
 
 #ifndef BIBS_BEHAVIOUR_H
