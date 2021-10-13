@@ -62,7 +62,7 @@ public:
 };
 
 /**
- * An agent in the simulation
+ * An agent in the simulation.
  */
 class Agent : public IAgent {
   using IAgent::IAgent;
