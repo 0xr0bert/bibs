@@ -5,7 +5,7 @@ project('bibs', 'cpp',
 
 inc = include_directories('include')
 
-# subdir('include')
-# subdir('src')
+subdir('include')
+subdir('src')
 # subdir('test')
 subdir('exe')
