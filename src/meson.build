@@ -14,9 +14,12 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+boost_dep = dependency('boost')
+
 bibs_sources = ['bibs.cpp', 'behaviour.cpp']
 bibs = shared_library(
   'bibs',
   bibs_sources,
-  include_directories : inc
+  include_directories : inc,
+  dependencies : boost_dep
 )

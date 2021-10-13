@@ -31,6 +31,7 @@ See LICENSE for the full content of the license.
 In order to compile you must have the following dependencies:
 
 - [Meson](https://mesonbuild.com/)
+- [Boost](https://www.boost.org/)
 - [Google Test](https://github.com/google/googletest)
 
 As well as a C++ compiler.
