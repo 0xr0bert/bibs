@@ -69,6 +69,13 @@ public:
    */
   IBelief(const std::string name, const boost::uuids::uuid uuid);
 };
+
+/**
+ * A belief in the simulation.
+ */
+class Belief : public IBelief {
+  using IBelief::IBelief;
+};
 } // namespace BIBS
 
 #endif // BIBS_BELIEF_H
