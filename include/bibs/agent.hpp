@@ -31,6 +31,9 @@
 #include <boost/uuid/uuid.hpp>
 
 namespace BIBS {
+/**
+ * The interface for an agent in the simulation.
+ */
 class IAgent {
 public:
   /**
