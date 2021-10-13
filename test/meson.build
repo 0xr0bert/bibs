@@ -15,7 +15,7 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 gtest_dep = dependency('gtest', main : true, required : false)
-bibs_test_sources = ['bibs.cpp']
+bibs_test_sources = ['bibs.cpp', 'behaviour.cpp']
 e = executable(
   'bibs-test',
   bibs_test_sources,
