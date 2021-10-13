@@ -15,7 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "bibs.hpp"
+#include "bibs/bibs.hpp"
 #include <gtest/gtest.h>
 
 TEST(SquareRootTest, Positive) {

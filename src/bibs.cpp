@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-#include "bibs.hpp"
+#include "bibs/bibs.hpp"
 #include <math.h>
 
 double squareRoot(double a) {
