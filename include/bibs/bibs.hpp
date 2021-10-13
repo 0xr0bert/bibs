@@ -22,7 +22,7 @@
  * @author    Robert Greener
  * @copyright GPL-3.0-or-later
  *
- * This module currently only contains a squareRoot function as a demo...
+ * This module contains a top-level typedef for sim_time_t.
  */
 
 #ifndef BIBS_BIBS_H
@@ -36,13 +36,5 @@ namespace BIBS {
  */
 typedef uint32_t sim_time_t;
 } // namespace BIBS
-
-/**
- * @brief Square root a number.
- * @details Square roots n.
- * @param n The number to square root.
- * @return -1.0 if NaN, sqrt(n) otherwise.
- */
-double squareRoot(double n);
 
 #endif // BIBS_BIBS_H
