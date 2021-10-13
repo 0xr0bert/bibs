@@ -16,7 +16,10 @@
 
 boost_dep = dependency('boost')
 
-bibs_sources = ['bibs.cpp', 'behaviour.cpp']
+bibs_sources = [
+  'bibs.cpp',
+  'behaviour.cpp',
+  'belief.cpp']
 bibs = shared_library(
   'bibs',
   bibs_sources,
