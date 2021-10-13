@@ -15,7 +15,48 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+/**
+ * @file      agent.hpp
+ * @brief     Header of agent.cpp
+ * @date      Wed Oct 13 17:43:34 2021
+ * @author    Robert Greener
+ * @copyright GPL-3.0-or-later
+ *
+ * This module contains an IAgent interface.
+ */
+
 #ifndef BIBS_AGENT_H
 #define BIBS_AGENT_H
+
+#include <boost/uuid/uuid.hpp>
+
+namespace BIBS {
+class IAgent {
+public:
+  /**
+   * Destroy IAgent.
+   */
+  virtual ~IAgent() {}
+
+  /**
+   * The UUID of the agent.
+   */
+  const boost::uuids::uuid uuid;
+
+  /**
+   * Create a new IAgent.
+   *
+   * The UUID is generated using a Mersenne Twister.
+   */
+  IAgent();
+
+  /**
+   * Create a new IAgent.
+   *
+   * @param uuid The UUID of the IAgent.
+   */
+  IAgent(const boost::uuids::uuid uuid);
+};
+} // namespace BIBS
 
 #endif // BIBS_AGENT_H

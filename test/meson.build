@@ -16,6 +16,7 @@
 
 gtest_dep = dependency('gtest', main : true, required : false)
 bibs_test_sources = [
+  'agent.cpp',
   'bibs.cpp',
   'behaviour.cpp',
   'belief.cpp']
