@@ -15,9 +15,25 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+/**
+ * @file      bibs.hpp
+ * @brief     Header of bibs.cpp
+ * @date      Wed Oct 13 14:41:21 2021
+ * @author    Robert Greener
+ * @copyright GPL-3.0-or-later
+ *
+ * This module currently only contains a squareRoot function as a demo...
+ */
+
 #ifndef BIBS_BIBS_H
 #define BIBS_BIBS_H
 
+/**
+ * @brief Square root a number.
+ * @details Square roots n.
+ * @param n The number to square root.
+ * @return -1.0 if NaN, sqrt(n) otherwise.
+ */
 double squareRoot(double n);
 
 #endif // BIBS_BIBS_H
