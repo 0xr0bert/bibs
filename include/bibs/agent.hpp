@@ -22,7 +22,7 @@
  * @author    Robert Greener
  * @copyright GPL-3.0-or-later
  *
- * This module contains an IAgent interface.
+ * This module contains an IAgent interface and an Agent implementation.
  */
 
 #ifndef BIBS_AGENT_H
@@ -56,6 +56,13 @@ public:
    * @param uuid The UUID of the IAgent.
    */
   IAgent(const boost::uuids::uuid uuid);
+};
+
+/**
+ * An agent in the simulation
+ */
+class Agent : public IAgent {
+  using IAgent::IAgent;
 };
 } // namespace BIBS
 
