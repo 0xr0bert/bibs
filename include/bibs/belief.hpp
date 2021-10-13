@@ -22,7 +22,7 @@
  * @author    Robert Greener
  * @copyright GPL-3.0-or-later
  *
- * This module contains an interface for a belief.
+ * This module contains an interface for a belief and an implementation.
  */
 
 #ifndef BIBS_BELIEF_H
