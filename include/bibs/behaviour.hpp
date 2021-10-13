@@ -55,7 +55,7 @@ public:
    *
    * @param name The name of the new behaviour.
    */
-  IBehaviour(const std::string name);
+  explicit IBehaviour(const std::string name);
 
   /**
    * Creates a new behaviour
@@ -63,7 +63,7 @@ public:
    * @param name The name of the new behaviour.
    * @param uuid The UUID of the new behaviour.
    */
-  IBehaviour(const std::string name, const boost::uuids::uuid uuid);
+  explicit IBehaviour(const std::string name, const boost::uuids::uuid uuid);
 };
 
 /**
