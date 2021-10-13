@@ -18,6 +18,7 @@
 #ifndef BIBS_BEHAVIOUR_H
 #define BIBS_BEHAVIOUR_H
 
+#include <boost/uuid/uuid.hpp>
 #include <string>
 
 namespace BIBS {
@@ -30,12 +31,26 @@ public:
    * The name of the behaviour.
    */
   const std::string name;
+
+  /**
+   * The UUID of the behaviour
+   */
+  const boost::uuids::uuid uuid;
+
   /**
    * Creates a new behaviour.
    *
    * @param name The name of the new behaviour.
    */
   Behaviour(const std::string name);
+
+  /**
+   * Creates a new behaviour
+   *
+   * @param name The name of the new behaviour.
+   * @param uuid The UUID of the new behaviour.
+   */
+  Behaviour(const std::string name, const boost::uuids::uuid uuid);
 };
 } // namespace BIBS
 

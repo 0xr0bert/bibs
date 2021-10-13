@@ -17,5 +17,12 @@
 
 #include "bibs/behaviour.hpp"
 
+#include <boost/uuid/uuid_generators.hpp>
+
 using namespace BIBS;
-Behaviour::Behaviour(const std::string name) : name(name) {}
+
+Behaviour::Behaviour(const std::string name)
+    : Behaviour::Behaviour(name, boost::uuids::random_generator_mt19937()()) {}
+
+Behaviour::Behaviour(const std::string name, boost::uuids::uuid uuid)
+    : name(name), uuid(uuid) {}
