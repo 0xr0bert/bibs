@@ -15,6 +15,7 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 gtest_dep = dependency('gtest', main : true, required : false)
+gmock_dep = dependency('gmock', main : true, required : false)
 bibs_test_sources = [
   'agent.cpp',
   'bibs.cpp',
@@ -23,7 +24,7 @@ bibs_test_sources = [
 e = executable(
   'bibs-test',
   bibs_test_sources,
-  dependencies : gtest_dep,
+  dependencies : [gtest_dep, gmock_dep],
   include_directories : inc,
   link_with : bibs
 )

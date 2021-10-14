@@ -28,7 +28,11 @@
 #ifndef BIBS_AGENT_H
 #define BIBS_AGENT_H
 
+#include "bibs/belief.hpp"
+#include "bibs/bibs.hpp"
+
 #include <boost/uuid/uuid.hpp>
+#include <map>
 
 namespace BIBS {
 /**
@@ -52,12 +56,27 @@ public:
    * @param uuid The UUID of the IAgent.
    */
   IAgent(const boost::uuids::uuid uuid);
+
+  /**
+   * Gets the activation of a belief at a time.
+   *
+   * @param t The time.
+   * @param b The belief.
+   * @return The activation.
+   */
+  virtual double activation(const sim_time_t t, const IBelief *b) const = 0;
 };
 
 /**
  * An agent in the simulation.
  */
 class Agent : public IAgent {
+private:
+  /**
+   * A map from time to another map of IBelief * to activation.
+   */
+  std::map<sim_time_t, std::map<const IBelief *, double>> activationMap;
+
 public:
   /**
    * Create a new Agent.
@@ -72,6 +91,34 @@ public:
    * @param uuid The UUID of the Agent.
    */
   Agent(const boost::uuids::uuid uuid);
+
+  /**
+   * Create a new Agent.
+   *
+   * @param activationMap The activation from time -> (belief -> activation).
+   */
+  Agent(const std::map<sim_time_t, std::map<const IBelief *, double>>
+            activationMap);
+
+  /**
+   * Create a new Agent.
+   *
+   * @param uuid The UUID of the Agent.
+   * @param activationMap The activation from time -> (belief -> activation).
+   */
+  Agent(const boost::uuids::uuid uuid,
+        const std::map<sim_time_t, std::map<const IBelief *, double>>
+            activationMap);
+
+  /**
+   * Gets the activation of a belief at a time.
+   *
+   * @param t The time.
+   * @param b The belief.
+   * @return The activation.
+   * @exception std::out_of_range If the time or belief not found.
+   */
+  double activation(const sim_time_t t, const IBelief *b) const override;
 };
 } // namespace BIBS
 
