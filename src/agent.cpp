@@ -19,7 +19,9 @@
 
 #include <boost/uuid/uuid_generators.hpp>
 
-BIBS::IAgent::IAgent()
-    : BIBS::IAgent(boost::uuids::random_generator_mt19937()()) {}
+BIBS::IAgent::IAgent(const boost::uuids::uuid uuid) : uuid(uuid){};
 
-BIBS::IAgent::IAgent(const boost::uuids::uuid uuid) : uuid(uuid) {}
+BIBS::Agent::Agent()
+    : BIBS::Agent(boost::uuids::random_generator_mt19937()()) {}
+
+BIBS::Agent::Agent(const boost::uuids::uuid uuid) : BIBS::IAgent(uuid){};

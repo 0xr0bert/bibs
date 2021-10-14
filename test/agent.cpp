@@ -24,13 +24,6 @@ class MockAgent : public BIBS::IAgent {
   using IAgent::IAgent;
 };
 
-TEST(MockAgent, EmptyConstructor) {
-  auto a1 = MockAgent();
-  auto a2 = MockAgent();
-
-  ASSERT_NE(a1.uuid, a2.uuid);
-}
-
 TEST(MockAgent, UUIDConstructor) {
   auto uuid = boost::uuids::random_generator_mt19937()();
   auto a = MockAgent(uuid);

@@ -49,13 +49,6 @@ public:
   /**
    * Create a new IAgent.
    *
-   * The UUID is generated using a Mersenne Twister.
-   */
-  IAgent();
-
-  /**
-   * Create a new IAgent.
-   *
    * @param uuid The UUID of the IAgent.
    */
   IAgent(const boost::uuids::uuid uuid);
@@ -65,7 +58,20 @@ public:
  * An agent in the simulation.
  */
 class Agent : public IAgent {
-  using IAgent::IAgent;
+public:
+  /**
+   * Create a new Agent.
+   *
+   * The UUID is generated using a Mersenne Twister.
+   */
+  Agent();
+
+  /**
+   * Create a new Agent.
+   *
+   * @param uuid The UUID of the Agent.
+   */
+  Agent(const boost::uuids::uuid uuid);
 };
 } // namespace BIBS
 
