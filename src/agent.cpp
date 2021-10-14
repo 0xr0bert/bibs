@@ -19,7 +19,23 @@
 
 #include <boost/uuid/uuid_generators.hpp>
 
-BIBS::IAgent::IAgent()
-    : BIBS::IAgent(boost::uuids::random_generator_mt19937()()) {}
-
 BIBS::IAgent::IAgent(const boost::uuids::uuid uuid) : uuid(uuid) {}
+
+BIBS::Agent::Agent()
+    : BIBS::Agent(boost::uuids::random_generator_mt19937()()) {}
+
+BIBS::Agent::Agent(const boost::uuids::uuid uuid) : BIBS::IAgent(uuid) {}
+
+BIBS::Agent::Agent(
+    const std::map<sim_time_t, std::map<const IBelief *, double>> activationMap)
+    : BIBS::IAgent(boost::uuids::random_generator_mt19937()()),
+      activationMap(activationMap) {}
+
+BIBS::Agent::Agent(
+    const boost::uuids::uuid uuid,
+    std::map<sim_time_t, std::map<const IBelief *, double>> activationMap)
+    : BIBS::IAgent(uuid), activationMap(activationMap) {}
+
+double BIBS::Agent::activation(const sim_time_t t, const IBelief *b) const {
+  return this->activationMap.at(t).at(b);
+}
