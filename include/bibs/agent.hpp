@@ -106,9 +106,9 @@ public:
    * @param uuid The UUID of the Agent.
    * @param activationMap The activation from time -> (belief -> activation).
    */
-  Agent(const boost::uuids::uuid uuid,
-        const std::map<sim_time_t, std::map<const IBelief *, double>>
-            activationMap);
+  explicit Agent(const boost::uuids::uuid uuid,
+                 const std::map<sim_time_t, std::map<const IBelief *, double>>
+                     activationMap);
 
   /**
    * Gets the activation of a belief at a time.
