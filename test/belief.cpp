@@ -31,9 +31,9 @@ TEST(MockBelief, NameOnlyConstructor) {
   std::string name2 = "B2";
   auto b2 = MockBelief(std::move(name2));
 
-  ASSERT_NE(b1.uuid, b2.uuid);
-  ASSERT_EQ(b1.name, "B1");
-  ASSERT_EQ(b2.name, "B2");
+  EXPECT_NE(b1.uuid, b2.uuid);
+  EXPECT_EQ(b1.name, "B1");
+  EXPECT_EQ(b2.name, "B2");
 }
 
 TEST(MockBelief, NameAndUUIDConstructor) {
@@ -41,8 +41,8 @@ TEST(MockBelief, NameAndUUIDConstructor) {
   auto uuid = boost::uuids::random_generator_mt19937()();
   auto b = MockBelief(std::move(name), uuid);
 
-  ASSERT_EQ(b.name, "B1");
-  ASSERT_EQ(b.uuid, uuid);
+  EXPECT_EQ(b.name, "B1");
+  EXPECT_EQ(b.uuid, uuid);
 }
 
 TEST(Belief, NameOnlyConstructor) {
@@ -52,9 +52,9 @@ TEST(Belief, NameOnlyConstructor) {
   std::string name2 = "B2";
   auto b2 = BIBS::Belief(std::move(name2));
 
-  ASSERT_NE(b1.uuid, b2.uuid);
-  ASSERT_EQ(b1.name, "B1");
-  ASSERT_EQ(b2.name, "B2");
+  EXPECT_NE(b1.uuid, b2.uuid);
+  EXPECT_EQ(b1.name, "B1");
+  EXPECT_EQ(b2.name, "B2");
 }
 
 TEST(Belief, NameAndUUIDConstructor) {
@@ -62,6 +62,6 @@ TEST(Belief, NameAndUUIDConstructor) {
   auto uuid = boost::uuids::random_generator_mt19937()();
   auto b = BIBS::Belief(std::move(name), uuid);
 
-  ASSERT_EQ(b.name, "B1");
-  ASSERT_EQ(b.uuid, uuid);
+  EXPECT_EQ(b.name, "B1");
+  EXPECT_EQ(b.uuid, uuid);
 }
