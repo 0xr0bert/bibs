@@ -39,21 +39,21 @@ TEST(MockAgent, UUIDConstructor) {
   auto uuid = boost::uuids::random_generator_mt19937()();
   auto a = MockAgent(uuid);
 
-  ASSERT_EQ(a.uuid, uuid);
+  EXPECT_EQ(a.uuid, uuid);
 }
 
 TEST(Agent, EmptyConstructor) {
   auto a1 = BIBS::Agent();
   auto a2 = BIBS::Agent();
 
-  ASSERT_NE(a1.uuid, a2.uuid);
+  EXPECT_NE(a1.uuid, a2.uuid);
 }
 
 TEST(Agent, UUIDConstructor) {
   auto uuid = boost::uuids::random_generator_mt19937()();
   auto a = BIBS::Agent(uuid);
 
-  ASSERT_EQ(a.uuid, uuid);
+  EXPECT_EQ(a.uuid, uuid);
 }
 
 TEST(Agent, activationMapConstructor) {

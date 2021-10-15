@@ -27,9 +27,9 @@ TEST(Behaviour, NameOnlyConstructor) {
   std::string name2 = "B2";
   auto beh2 = BIBS::Behaviour(std::move(name2));
 
-  ASSERT_NE(beh1.uuid, beh2.uuid);
-  ASSERT_EQ(beh1.name, "B1");
-  ASSERT_EQ(beh2.name, "B2");
+  EXPECT_NE(beh1.uuid, beh2.uuid);
+  EXPECT_EQ(beh1.name, "B1");
+  EXPECT_EQ(beh2.name, "B2");
 }
 
 TEST(Behaviour, NameAndUUIDConstructor) {
@@ -37,6 +37,6 @@ TEST(Behaviour, NameAndUUIDConstructor) {
   auto uuid = boost::uuids::random_generator_mt19937()();
   auto beh = BIBS::Behaviour(std::move(name), uuid);
 
-  ASSERT_EQ(beh.name, "B1");
-  ASSERT_EQ(beh.uuid, uuid);
+  EXPECT_EQ(beh.name, "B1");
+  EXPECT_EQ(beh.uuid, uuid);
 }
