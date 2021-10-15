@@ -90,7 +90,7 @@ public:
    *
    * @param uuid The UUID of the Agent.
    */
-  Agent(const boost::uuids::uuid uuid);
+  explicit Agent(const boost::uuids::uuid uuid);
 
   /**
    * Create a new Agent.
