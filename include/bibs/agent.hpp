@@ -55,7 +55,7 @@ public:
    *
    * @param uuid The UUID of the IAgent.
    */
-  IAgent(const boost::uuids::uuid uuid);
+  explicit IAgent(const boost::uuids::uuid uuid);
 
   /**
    * Gets the activation of a belief at a time.
@@ -83,22 +83,22 @@ public:
    *
    * The UUID is generated using a Mersenne Twister.
    */
-  Agent();
+  explicit Agent();
 
   /**
    * Create a new Agent.
    *
    * @param uuid The UUID of the Agent.
    */
-  Agent(const boost::uuids::uuid uuid);
+  explicit Agent(const boost::uuids::uuid uuid);
 
   /**
    * Create a new Agent.
    *
    * @param activationMap The activation from time -> (belief -> activation).
    */
-  Agent(const std::map<sim_time_t, std::map<const IBelief *, double>>
-            activationMap);
+  explicit Agent(const std::map<sim_time_t, std::map<const IBelief *, double>>
+                     activationMap);
 
   /**
    * Create a new Agent.
@@ -106,9 +106,9 @@ public:
    * @param uuid The UUID of the Agent.
    * @param activationMap The activation from time -> (belief -> activation).
    */
-  Agent(const boost::uuids::uuid uuid,
-        const std::map<sim_time_t, std::map<const IBelief *, double>>
-            activationMap);
+  explicit Agent(const boost::uuids::uuid uuid,
+                 const std::map<sim_time_t, std::map<const IBelief *, double>>
+                     activationMap);
 
   /**
    * Gets the activation of a belief at a time.
