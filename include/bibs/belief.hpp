@@ -59,7 +59,7 @@ public:
    *
    * @param name The name of the belief.
    */
-  IBelief(const std::string name);
+  explicit IBelief(const std::string name);
 
   /**
    * Create a new IBelief.
