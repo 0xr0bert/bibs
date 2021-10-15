@@ -67,7 +67,7 @@ public:
    * @param name The name of the belief.
    * @param uuid The UUID of the belief.
    */
-  IBelief(const std::string name, const boost::uuids::uuid uuid);
+  explicit IBelief(const std::string name, const boost::uuids::uuid uuid);
 };
 
 /**
