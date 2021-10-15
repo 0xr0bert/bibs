@@ -97,8 +97,8 @@ public:
    *
    * @param activationMap The activation from time -> (belief -> activation).
    */
-  Agent(const std::map<sim_time_t, std::map<const IBelief *, double>>
-            activationMap);
+  explicit Agent(const std::map<sim_time_t, std::map<const IBelief *, double>>
+                     activationMap);
 
   /**
    * Create a new Agent.
