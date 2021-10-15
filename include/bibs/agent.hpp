@@ -83,7 +83,7 @@ public:
    *
    * The UUID is generated using a Mersenne Twister.
    */
-  Agent();
+  explicit Agent();
 
   /**
    * Create a new Agent.
