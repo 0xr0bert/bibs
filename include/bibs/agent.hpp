@@ -55,7 +55,7 @@ public:
    *
    * @param uuid The UUID of the IAgent.
    */
-  IAgent(const boost::uuids::uuid uuid);
+  explicit IAgent(const boost::uuids::uuid uuid);
 
   /**
    * Gets the activation of a belief at a time.
