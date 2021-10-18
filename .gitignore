@@ -1,2 +1,6 @@
 build/
 .ccls-cache/
+docs/_build/
+docs/html/
+docs/latex/
+docs/xml/
