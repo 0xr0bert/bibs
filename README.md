@@ -18,6 +18,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 # BIBS
 
+[![](https://jenkins.robgreener.com/job/BIBS/badge/icon)](https://jenkins.robgreener.com/job/BIBS/)
+
 BIBS is the *belief-induced behaviour simulation*.
 
 # License
