@@ -30,6 +30,12 @@
 
 #include <cstdint>
 
+/**
+ * BIBS is the belief-induced behaviour simulation.
+ *
+ * This namespace contains a number of classes used to create your own
+ * belief-induced behaviour simulation.
+ */
 namespace BIBS {
 /**
  * Time in the simulations -- ticks since start.
