@@ -15,7 +15,7 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 gtest_dep = dependency('gtest', main : true, required : false)
-gmock_dep = dependency('gmock', main : true, required : false)
+gmock_dep = dependency('gmock', main : false, required : false)
 bibs_test_sources = [
   'agent.cpp',
   'behaviour.cpp',
