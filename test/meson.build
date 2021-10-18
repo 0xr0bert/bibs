@@ -18,7 +18,6 @@ gtest_dep = dependency('gtest', main : true, required : false)
 gmock_dep = dependency('gmock', main : true, required : false)
 bibs_test_sources = [
   'agent.cpp',
-  'bibs.cpp',
   'behaviour.cpp',
   'belief.cpp']
 e = executable(
