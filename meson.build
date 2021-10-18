@@ -15,7 +15,7 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 project('bibs', 'cpp',
-        default_options : ['cpp_std=c++20'],
+        default_options : ['cpp_std=c++17'],
         version : '0.1.0',
         license : 'GPL-3.0-or-later')
 
