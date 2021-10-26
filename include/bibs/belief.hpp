@@ -110,6 +110,30 @@ public:
    */
   virtual void setObservedBehaviourRelationship(const IBehaviour *beh,
                                                 const double value) = 0;
+
+  /**
+   * Gets the Performing Behaviour Relationship.
+   *
+   * This describes how the likelihood of performing the behaviour beh is
+   * affected by holding this belief.
+   *
+   * @param beh The behaviour.
+   * @return The Performing Behaviour Relationship.
+   */
+  virtual double
+  performingBehaviourRelationship(const IBehaviour *beh) const = 0;
+
+  /**
+   * Sets the Performing Behaviour Relationship.
+   *
+   * This relationship describes how the likelihood of performing the behaviour
+   * beh is affected by holding this belief.
+   *
+   * @param beh The behaviour.
+   * @param value The new value of the relationship.
+   */
+  virtual void setPerformingBehaviourRelationship(const IBehaviour *beh,
+                                                  const double value) = 0;
 };
 
 /**
@@ -173,6 +197,29 @@ public:
    */
   void setObservedBehaviourRelationship(const IBehaviour *beh,
                                         const double value) override;
+
+  /**
+   * Gets the Performing Behaviour Relationship.
+   *
+   * This describes how the likelihood of performing the behaviour beh is
+   * affected by holding this belief.
+   *
+   * @param beh The behaviour.
+   * @return The Performing Behaviour Relationship.
+   */
+  double performingBehaviourRelationship(const IBehaviour *beh) const override;
+
+  /**
+   * Sets the Performing Behaviour Relationship.
+   *
+   * This relationship describes how the likelihood of performing the behaviour
+   * beh is affected by holding this belief.
+   *
+   * @param beh The behaviour.
+   * @param value The new value of the relationship.
+   */
+  void setPerformingBehaviourRelationship(const IBehaviour *beh,
+                                          const double value) override;
 };
 } // namespace BIBS
 
