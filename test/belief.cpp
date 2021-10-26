@@ -17,10 +17,12 @@
 
 #include "bibs/belief.hpp"
 
+#include "behaviour.hpp"
 #include "belief.hpp"
 #include <boost/uuid/uuid_generators.hpp>
 #include <gtest/gtest.h>
 #include <memory>
+#include <stdexcept>
 
 TEST(MockBelief, NameOnlyConstructor) {
   std::string name1 = "B1";
@@ -91,4 +93,32 @@ TEST(Belief, setBeliefRelationshipUpdating) {
   b1.setBeliefRelationship(b2.get(), 10.0);
 
   EXPECT_EQ(b1.beliefRelationship(b2.get()), 10.0);
+}
+
+TEST(Belief, observedBehaviourRelationshipWhenNotExists) {
+  auto beh = std::make_unique<BIBS::testing::MockBehaviour>("beh");
+  auto b = BIBS::Belief("b1");
+
+  EXPECT_THROW(b.observedBehaviourRelationship(beh.get()), std::out_of_range);
+}
+
+TEST(
+    Belief,
+    observedBehaviourRelationshipWhenExistsAndSetObservedBehaviourRelationship) {
+  auto beh = std::make_unique<BIBS::testing::MockBehaviour>("beh");
+  auto b = BIBS::Belief("b1");
+
+  b.setObservedBehaviourRelationship(beh.get(), 10.0);
+  EXPECT_EQ(b.observedBehaviourRelationship(beh.get()), 10.0);
+}
+
+TEST(Belief, setObservedBehaviourRelationshipUpdate) {
+  auto beh = std::make_unique<BIBS::testing::MockBehaviour>("beh");
+  auto b = BIBS::Belief("b1");
+
+  b.setObservedBehaviourRelationship(beh.get(), 5.0);
+  EXPECT_EQ(b.observedBehaviourRelationship(beh.get()), 5.0);
+
+  b.setObservedBehaviourRelationship(beh.get(), 2.0);
+  EXPECT_EQ(b.observedBehaviourRelationship(beh.get()), 2.0);
 }

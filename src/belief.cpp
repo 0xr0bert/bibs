@@ -37,10 +37,10 @@ void BIBS::Belief::setBeliefRelationship(const IBelief *b2,
 
 double
 BIBS::Belief::observedBehaviourRelationship(const IBehaviour *beh) const {
-  throw std::logic_error("Not implemented");
+  return observedBehaviourRelationshipMap.at(beh);
 }
 
 void BIBS::Belief::setObservedBehaviourRelationship(const IBehaviour *beh,
                                                     const double value) {
-  throw std::logic_error("Not implemented");
+  observedBehaviourRelationshipMap.insert_or_assign(beh, value);
 }
