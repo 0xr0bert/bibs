@@ -122,3 +122,31 @@ TEST(Belief, setObservedBehaviourRelationshipUpdate) {
   b.setObservedBehaviourRelationship(beh.get(), 2.0);
   EXPECT_EQ(b.observedBehaviourRelationship(beh.get()), 2.0);
 }
+
+TEST(Belief, performingBehaviourRelationshipWhenNotExists) {
+  auto beh = std::make_unique<BIBS::testing::MockBehaviour>("beh");
+  auto b = BIBS::Belief("b1");
+
+  EXPECT_THROW(b.performingBehaviourRelationship(beh.get()), std::out_of_range);
+}
+
+TEST(
+    Belief,
+    performingBehaviourRelationshipWhenExistsAndSetObservedBehaviourRelationship) {
+  auto beh = std::make_unique<BIBS::testing::MockBehaviour>("beh");
+  auto b = BIBS::Belief("b1");
+
+  b.setPerformingBehaviourRelationship(beh.get(), 10.0);
+  EXPECT_EQ(b.performingBehaviourRelationship(beh.get()), 10.0);
+}
+
+TEST(Belief, setPerformingBehaviourRelationshipUpdate) {
+  auto beh = std::make_unique<BIBS::testing::MockBehaviour>("beh");
+  auto b = BIBS::Belief("b1");
+
+  b.setPerformingBehaviourRelationship(beh.get(), 5.0);
+  EXPECT_EQ(b.performingBehaviourRelationship(beh.get()), 5.0);
+
+  b.setPerformingBehaviourRelationship(beh.get(), 2.0);
+  EXPECT_EQ(b.performingBehaviourRelationship(beh.get()), 2.0);
+}

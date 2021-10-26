@@ -155,6 +155,12 @@ private:
    */
   std::map<const IBehaviour *, double> observedBehaviourRelationshipMap;
 
+  /**
+   * The map used for storing performing behaviour relationships.
+   * From const IBehaviour * to the relationship.
+   */
+  std::map<const IBehaviour *, double> performingBehaviourRelationshipMap;
+
 public:
   /**
    * The relationship between beliefs.
