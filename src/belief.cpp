@@ -26,3 +26,6 @@ BIBS::IBelief::IBelief(const std::string name, const boost::uuids::uuid uuid)
     : name(name), uuid(uuid) {}
 
 double BIBS::Belief::beliefRelationship(const IBelief *b2) const { return 0.0; }
+
+void BIBS::Belief::setBeliefRelationship(const IBelief *b2,
+                                         const double value) {}

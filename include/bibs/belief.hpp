@@ -78,6 +78,15 @@ public:
    *   already hold this.
    */
   virtual double beliefRelationship(const IBelief *b2) const = 0;
+
+  /**
+   * Set the relationship between beliefs.
+   *
+   * @param b2 The other belief.
+   * @param value The relationship between this belief and b2, given that you
+   *   already hold this.
+   */
+  virtual void setBeliefRelationship(const IBelief *b2, const double value) = 0;
 };
 
 /**
@@ -95,6 +104,15 @@ public:
    *   already hold this.
    */
   double beliefRelationship(const IBelief *b2) const override;
+
+  /**
+   * Set the relationship between beliefs.
+   *
+   * @param b2 The other belief.
+   * @param value The relationship between this belief and b2, given that you
+   *   already hold this.
+   */
+  void setBeliefRelationship(const IBelief *b2, const double value) override;
 };
 } // namespace BIBS
 
