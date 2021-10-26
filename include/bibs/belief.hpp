@@ -158,6 +158,7 @@ public:
    *
    * @param beh The behaviour.
    * @return The Observed Behaviour Relationship.
+   * @exception std::out_of_range If the behaviour is not found.
    */
   double observedBehaviourRelationship(const IBehaviour *beh) const override;
 
