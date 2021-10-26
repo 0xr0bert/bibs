@@ -28,6 +28,7 @@
 #ifndef BIBS_AGENT_H
 #define BIBS_AGENT_H
 
+#include "bibs/behaviour.hpp"
 #include "bibs/belief.hpp"
 #include "bibs/bibs.hpp"
 
@@ -65,6 +66,14 @@ public:
    * @return The activation.
    */
   virtual double activation(const sim_time_t t, const IBelief *b) const = 0;
+
+  /**
+   * Gets the behaviour of the agent at a time.
+   *
+   * @param t The time.
+   * @return The performed behaviour.
+   */
+  virtual const IBehaviour *performed(const sim_time_t t) const = 0;
 };
 
 /**
@@ -119,6 +128,14 @@ public:
    * @exception std::out_of_range If the time or belief not found.
    */
   double activation(const sim_time_t t, const IBelief *b) const override;
+
+  /**
+   * Gets the behaviour of the agent at a time.
+   *
+   * @param t The time.
+   * @return The performed behaviour.
+   */
+  const IBehaviour *performed(const sim_time_t t) const override;
 };
 } // namespace BIBS
 

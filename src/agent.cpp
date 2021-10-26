@@ -39,3 +39,7 @@ BIBS::Agent::Agent(
 double BIBS::Agent::activation(const sim_time_t t, const IBelief *b) const {
   return this->activationMap.at(t).at(b);
 }
+
+const BIBS::IBehaviour *BIBS::Agent::performed(const sim_time_t t) const {
+  return nullptr;
+}

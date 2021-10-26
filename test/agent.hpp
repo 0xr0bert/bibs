@@ -35,5 +35,8 @@ class MockAgent : public BIBS::IAgent {
   MOCK_METHOD(double, activation,
               (const BIBS::sim_time_t t, const BIBS::IBelief *b),
               (const, override));
+
+  MOCK_METHOD(const IBehaviour *, performed, (const sim_time_t t),
+              (const, override));
 };
 } // namespace BIBS::testing
