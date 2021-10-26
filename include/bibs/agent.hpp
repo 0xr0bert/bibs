@@ -86,6 +86,11 @@ private:
    */
   std::map<sim_time_t, std::map<const IBelief *, double>> activationMap;
 
+  /**
+   * A map from time to the performed behaviour.
+   */
+  std::map<sim_time_t, const IBehaviour *> performedMap;
+
 public:
   /**
    * Create a new Agent.
@@ -136,6 +141,16 @@ public:
    * @return The performed behaviour.
    */
   const IBehaviour *performed(const sim_time_t t) const override;
+
+  /**
+   * Adds a behaviour to the performedMap.
+   * Used only for testing.
+   *
+   * @private
+   * @param t The time.
+   * @param b The behaviour.
+   */
+  const void _addPerformed(const sim_time_t t, const IBehaviour *b);
 };
 } // namespace BIBS
 

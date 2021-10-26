@@ -19,6 +19,7 @@
 #include "bibs/belief.hpp"
 
 #include "agent.hpp"
+#include "behaviour.hpp"
 #include "belief.hpp"
 #include <boost/uuid/uuid_generators.hpp>
 #include <gmock/gmock.h>
@@ -100,4 +101,19 @@ TEST(Agent, activationWhenFound) {
 
   auto a = BIBS::Agent(act);
   EXPECT_EQ(a.activation(0, b.get()), 1.0);
+}
+
+TEST(Agent, performedWhenNotFound) {
+  auto a = BIBS::Agent();
+
+  EXPECT_THROW(a.performed(10), std::out_of_range);
+}
+
+TEST(Agent, performWhenFound) {
+  auto b = std::make_unique<BIBS::testing::MockBehaviour>("b1");
+  auto a = BIBS::Agent();
+
+  a._addPerformed(10, b.get());
+
+  EXPECT_EQ(a.performed(10), b.get());
 }

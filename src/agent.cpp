@@ -41,5 +41,9 @@ double BIBS::Agent::activation(const sim_time_t t, const IBelief *b) const {
 }
 
 const BIBS::IBehaviour *BIBS::Agent::performed(const sim_time_t t) const {
-  return nullptr;
+  return performedMap.at(t);
+}
+
+const void BIBS::Agent::_addPerformed(const sim_time_t t, const IBehaviour *b) {
+  performedMap.insert_or_assign(t, b);
 }
