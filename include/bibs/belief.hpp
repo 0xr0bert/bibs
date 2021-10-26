@@ -98,6 +98,18 @@ public:
    * @return The Observed Behaviour Relationship.
    */
   virtual double observedBehaviourRelationship(const IBehaviour *beh) const = 0;
+
+  /**
+   * Sets the Observed Behaviour Relationship.
+   *
+   * This relationship describes how relevant the observed behaviour beh is to
+   * this belief.
+   *
+   * @param beh The behaviour.
+   * @param value The new value of the relationship.
+   */
+  virtual void setObservedBehaviourRelationship(const IBehaviour *beh,
+                                                const double value) = 0;
 };
 
 /**
@@ -142,6 +154,18 @@ public:
    * @return The Observed Behaviour Relationship.
    */
   double observedBehaviourRelationship(const IBehaviour *beh) const override;
+
+  /**
+   * Sets the Observed Behaviour Relationship.
+   *
+   * This relationship describes how relevant the observed behaviour beh is to
+   * this belief.
+   *
+   * @param beh The behaviour.
+   * @param value The new value of the relationship.
+   */
+  void setObservedBehaviourRelationship(const IBehaviour *beh,
+                                        const double value) override;
 };
 } // namespace BIBS
 

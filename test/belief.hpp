@@ -40,5 +40,8 @@ class MockBelief : public BIBS::IBelief {
 
   MOCK_METHOD(double, observedBehaviourRelationship, (const IBehaviour *beh),
               (const, override));
+
+  MOCK_METHOD(void, setObservedBehaviourRelationship,
+              (const IBehaviour *beh, const double value), (override));
 };
 } // namespace BIBS::testing

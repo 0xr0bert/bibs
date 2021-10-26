@@ -39,3 +39,8 @@ double
 BIBS::Belief::observedBehaviourRelationship(const IBehaviour *beh) const {
   throw std::logic_error("Not implemented");
 }
+
+void BIBS::Belief::setObservedBehaviourRelationship(const IBehaviour *beh,
+                                                    const double value) {
+  throw std::logic_error("Not implemented");
+}
