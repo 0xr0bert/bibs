@@ -28,6 +28,7 @@
 #ifndef BIBS_BELIEF_H
 #define BIBS_BELIEF_H
 
+#include "bibs/behaviour.hpp"
 #include <boost/uuid/uuid.hpp>
 #include <map>
 #include <string>
@@ -87,6 +88,16 @@ public:
    *   already hold this.
    */
   virtual void setBeliefRelationship(const IBelief *b2, const double value) = 0;
+
+  /**
+   * Gets the Observed Behaviour Relationship.
+   *
+   * This describes how relevant the observed behaviour beh is to this belief.
+   *
+   * @param beh The behaviour.
+   * @return The Observed Behaviour Relationship.
+   */
+  virtual double observedBehaviourRelationship(const IBehaviour *beh) const = 0;
 };
 
 /**
@@ -121,6 +132,8 @@ public:
    *   already hold this.
    */
   void setBeliefRelationship(const IBelief *b2, const double value) override;
+
+  double observedBehaviourRelationship(const IBehaviour *beh) const override;
 };
 } // namespace BIBS
 

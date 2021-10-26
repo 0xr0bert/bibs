@@ -18,6 +18,7 @@
 #include "bibs/belief.hpp"
 
 #include <boost/uuid/uuid_generators.hpp>
+#include <stdexcept>
 
 BIBS::IBelief::IBelief(const std::string name)
     : BIBS::IBelief(name, boost::uuids::random_generator_mt19937()()) {}
@@ -32,4 +33,9 @@ double BIBS::Belief::beliefRelationship(const IBelief *b2) const {
 void BIBS::Belief::setBeliefRelationship(const IBelief *b2,
                                          const double value) {
   beliefRelationshipMap.insert_or_assign(b2, value);
+}
+
+double
+BIBS::Belief::observedBehaviourRelationship(const IBehaviour *beh) const {
+  throw std::logic_error("Not implemented");
 }
