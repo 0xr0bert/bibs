@@ -17,19 +17,16 @@
 
 #include "bibs/behaviour.hpp"
 
+#include "behaviour.hpp"
 #include <boost/uuid/uuid_generators.hpp>
 #include <gtest/gtest.h>
 
-class MockBehaviour : public BIBS::IBehaviour {
-  using IBehaviour::IBehaviour;
-};
-
 TEST(MockBehaviour, NameOnlyConstructor) {
   std::string name1 = "B1";
-  auto beh1 = MockBehaviour(std::move(name1));
+  auto beh1 = BIBS::testing::MockBehaviour(std::move(name1));
 
   std::string name2 = "B2";
-  auto beh2 = MockBehaviour(std::move(name2));
+  auto beh2 = BIBS::testing::MockBehaviour(std::move(name2));
 
   EXPECT_NE(beh1.uuid, beh2.uuid);
   EXPECT_EQ(beh1.name, "B1");
@@ -39,7 +36,7 @@ TEST(MockBehaviour, NameOnlyConstructor) {
 TEST(MockBehaviour, NameAndUUIDConstructor) {
   std::string name = "B1";
   auto uuid = boost::uuids::random_generator_mt19937()();
-  auto beh = MockBehaviour(std::move(name), uuid);
+  auto beh = BIBS::testing::MockBehaviour(std::move(name), uuid);
 
   EXPECT_EQ(beh.name, "B1");
   EXPECT_EQ(beh.uuid, uuid);
