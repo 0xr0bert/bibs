@@ -1,4 +1,5 @@
 build/
+docker-builddir/
 .ccls-cache/
 .cache/
 docs/_build/
