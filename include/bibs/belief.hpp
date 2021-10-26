@@ -95,6 +95,13 @@ public:
 class Belief : public IBelief {
   using IBelief::IBelief;
 
+private:
+  /**
+   * The map used for storing belief relationships.
+   * From const IBelief* to the relationship.
+   */
+  std::map<const IBelief *, double> beliefRelationshipMap;
+
 public:
   /**
    * The relationship between beliefs.
@@ -102,6 +109,7 @@ public:
    * @param b2 The other belief.
    * @returns The relationship between this belief and b2, given that you
    *   already hold this.
+   * @exception std::out_of_range If the belief is not found.
    */
   double beliefRelationship(const IBelief *b2) const override;
 

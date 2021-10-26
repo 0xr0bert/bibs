@@ -20,6 +20,7 @@
 #include "belief.hpp"
 #include <boost/uuid/uuid_generators.hpp>
 #include <gtest/gtest.h>
+#include <memory>
 
 TEST(MockBelief, NameOnlyConstructor) {
   std::string name1 = "B1";
@@ -61,4 +62,33 @@ TEST(Belief, NameAndUUIDConstructor) {
 
   EXPECT_EQ(b.name, "B1");
   EXPECT_EQ(b.uuid, uuid);
+}
+
+TEST(Belief, SetAndGetBeliefRelationshipWhenExists) {
+  auto b1 = BIBS::Belief("b1");
+  auto b2 = std::make_unique<BIBS::testing::MockBelief>("b2");
+
+  b1.setBeliefRelationship(b2.get(), 5.0);
+
+  EXPECT_EQ(b1.beliefRelationship(b2.get()), 5.0);
+}
+
+TEST(Belief, beliefRelationshipWhenNotExists) {
+  auto b1 = BIBS::Belief("b1");
+  auto b2 = std::make_unique<BIBS::testing::MockBelief>("b2");
+
+  EXPECT_THROW(b1.beliefRelationship(b2.get()), std::out_of_range);
+}
+
+TEST(Belief, setBeliefRelationshipUpdating) {
+  auto b1 = BIBS::Belief("b1");
+  auto b2 = std::make_unique<BIBS::testing::MockBelief>("b2");
+
+  b1.setBeliefRelationship(b2.get(), 5.0);
+
+  EXPECT_EQ(b1.beliefRelationship(b2.get()), 5.0);
+
+  b1.setBeliefRelationship(b2.get(), 10.0);
+
+  EXPECT_EQ(b1.beliefRelationship(b2.get()), 10.0);
 }
