@@ -133,6 +133,14 @@ public:
    */
   void setBeliefRelationship(const IBelief *b2, const double value) override;
 
+  /**
+   * Gets the Observed Behaviour Relationship.
+   *
+   * This describes how relevant the observed behaviour beh is to this belief.
+   *
+   * @param beh The behaviour.
+   * @return The Observed Behaviour Relationship.
+   */
   double observedBehaviourRelationship(const IBehaviour *beh) const override;
 };
 } // namespace BIBS
