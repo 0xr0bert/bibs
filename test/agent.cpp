@@ -18,23 +18,16 @@
 #include "bibs/agent.hpp"
 #include "bibs/belief.hpp"
 
+#include "agent.hpp"
 #include "belief.hpp"
 #include <boost/uuid/uuid_generators.hpp>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 #include <memory>
 
-class MockAgent : public BIBS::IAgent {
-  using IAgent::IAgent;
-
-  MOCK_METHOD(double, activation,
-              (const BIBS::sim_time_t t, const BIBS::IBelief *b),
-              (const, override));
-};
-
 TEST(MockAgent, UUIDConstructor) {
   auto uuid = boost::uuids::random_generator_mt19937()();
-  auto a = MockAgent(uuid);
+  auto a = BIBS::testing::MockAgent(uuid);
 
   EXPECT_EQ(a.uuid, uuid);
 }
