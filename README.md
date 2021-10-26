@@ -43,6 +43,12 @@ See LICENSE for the full content of the license.
 
 # Compilation
 
+## Docker compile
+Rather than setting up the dependencies, you can build the `Dockerfile`
+located in the `docker/` directory, and mount the project folder as a volume
+at `/data` in the container. You can then skip straight to the Setup the build
+directory step.
+
 ## Dependencies
 In order to compile you must have the following dependencies:
 
