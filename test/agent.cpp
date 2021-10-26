@@ -18,6 +18,7 @@
 #include "bibs/agent.hpp"
 #include "bibs/belief.hpp"
 
+#include "belief.hpp"
 #include <boost/uuid/uuid_generators.hpp>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
@@ -28,13 +29,6 @@ class MockAgent : public BIBS::IAgent {
 
   MOCK_METHOD(double, activation,
               (const BIBS::sim_time_t t, const BIBS::IBelief *b),
-              (const, override));
-};
-
-class MockBelief : public BIBS::IBelief {
-  using IBelief::IBelief;
-
-  MOCK_METHOD(double, beliefRelationship, (const IBelief *b2),
               (const, override));
 };
 
@@ -62,7 +56,7 @@ TEST(Agent, UUIDConstructor) {
 TEST(Agent, activationMapConstructor) {
   std::map<BIBS::sim_time_t, std::map<const BIBS::IBelief *, double>> act;
   std::map<const BIBS::IBelief *, double> act0;
-  auto b = std::make_unique<MockBelief>("b1");
+  auto b = std::make_unique<BIBS::testing::MockBelief>("b1");
   act0.insert({b.get(), 1.0});
   act.insert({0, act0});
   auto a1 = BIBS::Agent(act);
@@ -77,7 +71,7 @@ TEST(Agent, UUIDAndActivationMapConstructor) {
   auto uuid = boost::uuids::random_generator_mt19937()();
   std::map<BIBS::sim_time_t, std::map<const BIBS::IBelief *, double>> act;
   std::map<const BIBS::IBelief *, double> act0;
-  auto b = std::make_unique<MockBelief>("b1");
+  auto b = std::make_unique<BIBS::testing::MockBelief>("b1");
   act0.insert({b.get(), 1.0});
   act.insert({0, act0});
 
@@ -90,7 +84,7 @@ TEST(Agent, UUIDAndActivationMapConstructor) {
 TEST(Agent, activationWhenTNotFound) {
   auto a = BIBS::Agent();
 
-  auto b = std::make_unique<MockBelief>("b1");
+  auto b = std::make_unique<BIBS::testing::MockBelief>("b1");
   EXPECT_THROW(a.activation(0, b.get()), std::out_of_range);
 }
 
@@ -100,14 +94,14 @@ TEST(Agent, activationWhenBNotFound) {
   act.insert({0, act0});
 
   auto a = BIBS::Agent(act);
-  auto b = std::make_unique<MockBelief>("b1");
+  auto b = std::make_unique<BIBS::testing::MockBelief>("b1");
   EXPECT_THROW(a.activation(0, b.get()), std::out_of_range);
 }
 
 TEST(Agent, activationWhenFound) {
   std::map<BIBS::sim_time_t, std::map<const BIBS::IBelief *, double>> act;
   std::map<const BIBS::IBelief *, double> act0;
-  auto b = std::make_unique<MockBelief>("b1");
+  auto b = std::make_unique<BIBS::testing::MockBelief>("b1");
   act0.insert({b.get(), 1.0});
   act.insert({0, act0});
 

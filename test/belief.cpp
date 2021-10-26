@@ -17,23 +17,16 @@
 
 #include "bibs/belief.hpp"
 
+#include "belief.hpp"
 #include <boost/uuid/uuid_generators.hpp>
-#include <gmock/gmock.h>
 #include <gtest/gtest.h>
-
-class MockBelief : public BIBS::IBelief {
-  using IBelief::IBelief;
-
-  MOCK_METHOD(double, beliefRelationship, (const IBelief *b2),
-              (const, override));
-};
 
 TEST(MockBelief, NameOnlyConstructor) {
   std::string name1 = "B1";
-  auto b1 = MockBelief(std::move(name1));
+  auto b1 = BIBS::testing::MockBelief(std::move(name1));
 
   std::string name2 = "B2";
-  auto b2 = MockBelief(std::move(name2));
+  auto b2 = BIBS::testing::MockBelief(std::move(name2));
 
   EXPECT_NE(b1.uuid, b2.uuid);
   EXPECT_EQ(b1.name, "B1");
@@ -43,7 +36,7 @@ TEST(MockBelief, NameOnlyConstructor) {
 TEST(MockBelief, NameAndUUIDConstructor) {
   std::string name = "B1";
   auto uuid = boost::uuids::random_generator_mt19937()();
-  auto b = MockBelief(std::move(name), uuid);
+  auto b = BIBS::testing::MockBelief(std::move(name), uuid);
 
   EXPECT_EQ(b.name, "B1");
   EXPECT_EQ(b.uuid, uuid);
