@@ -18,10 +18,14 @@
 #include "bibs/belief.hpp"
 
 #include <boost/uuid/uuid_generators.hpp>
+#include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
 class MockBelief : public BIBS::IBelief {
   using IBelief::IBelief;
+
+  MOCK_METHOD(double, beliefRelationship, (const IBelief *b2),
+              (const, override));
 };
 
 TEST(MockBelief, NameOnlyConstructor) {

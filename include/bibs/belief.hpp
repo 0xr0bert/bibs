@@ -29,6 +29,7 @@
 #define BIBS_BELIEF_H
 
 #include <boost/uuid/uuid.hpp>
+#include <map>
 #include <string>
 
 namespace BIBS {
@@ -68,6 +69,15 @@ public:
    * @param uuid The UUID of the belief.
    */
   explicit IBelief(const std::string name, const boost::uuids::uuid uuid);
+
+  /**
+   * The relationship between beliefs.
+   *
+   * @param b2 The other belief.
+   * @returns The relationship between this belief and b2, given that you
+   *   already hold this.
+   */
+  virtual double beliefRelationship(const IBelief *b2) const = 0;
 };
 
 /**
@@ -75,6 +85,16 @@ public:
  */
 class Belief : public IBelief {
   using IBelief::IBelief;
+
+public:
+  /**
+   * The relationship between beliefs.
+   *
+   * @param b2 The other belief.
+   * @returns The relationship between this belief and b2, given that you
+   *   already hold this.
+   */
+  double beliefRelationship(const IBelief *b2) const override;
 };
 } // namespace BIBS
 

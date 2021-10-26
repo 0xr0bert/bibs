@@ -33,6 +33,9 @@ class MockAgent : public BIBS::IAgent {
 
 class MockBelief : public BIBS::IBelief {
   using IBelief::IBelief;
+
+  MOCK_METHOD(double, beliefRelationship, (const IBelief *b2),
+              (const, override));
 };
 
 TEST(MockAgent, UUIDConstructor) {
