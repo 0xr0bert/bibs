@@ -118,8 +118,7 @@ public:
    * @return The activation.
    * @exception std::out_of_range If the time or belief not found.
    */
-  virtual double activation(const sim_time_t t,
-                            const IBelief *b) const override;
+  double activation(const sim_time_t t, const IBelief *b) const override;
 };
 } // namespace BIBS
 
