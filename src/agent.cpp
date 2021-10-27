@@ -82,3 +82,7 @@ double BIBS::Agent::contextualObserved(const IBelief *b,
                                        const sim_time_t t) const {
   return contextualise(b, t) * observed(b, t);
 }
+
+double BIBS::Agent::timeDelta(const IBelief *b) const {
+  throw std::logic_error("Not implemented");
+}
