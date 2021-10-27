@@ -50,6 +50,9 @@ public:
 
   MOCK_METHOD(double, contextualise,
               (const BIBS::IBelief *b, const sim_time_t t), (const, override));
+
+  MOCK_METHOD(double, contextualObserved,
+              (const BIBS::IBelief *b, const sim_time_t t), (const, override));
 };
 } // namespace BIBS::testing
 

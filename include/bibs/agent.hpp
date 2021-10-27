@@ -94,6 +94,17 @@ protected:
    * @return The weight used to put into context.
    */
   virtual double contextualise(const IBelief *b, const sim_time_t t) const = 0;
+
+  /**
+   * Calculates and returns the value of observing behaviour relevant to belief
+   * b at time t, taking into context the beliefs this agent holds.
+   *
+   * @param b The belief.
+   * @param t The time.
+   * @return The contextual value of observing relevant behaviour.
+   */
+  virtual double contextualObserved(const IBelief *b,
+                                    const sim_time_t t) const = 0;
 };
 
 /**
@@ -214,6 +225,17 @@ protected:
    */
   virtual double contextualise(const IBelief *b,
                                const sim_time_t t) const override;
+
+  /**
+   * Calculates and returns the value of observing behaviour relevant to belief
+   * b at time t, taking into context the beliefs this agent holds.
+   *
+   * @param b The belief.
+   * @param t The time.
+   * @return The contextual value of observing relevant behaviour.
+   */
+  virtual double contextualObserved(const IBelief *b,
+                                    const sim_time_t t) const override;
 };
 } // namespace BIBS
 
