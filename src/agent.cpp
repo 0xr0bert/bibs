@@ -50,7 +50,12 @@ void BIBS::Agent::_addPerformed(const sim_time_t t, const IBehaviour *b) {
 }
 
 double BIBS::Agent::observed(const IBelief *b, const sim_time_t t) const {
-  throw std::logic_error("Not implemented");
+  double ret_value = 0.0;
+  for (auto const &[a, w] : friends) {
+    ret_value += w * b->observedBehaviourRelationship(a->performed(t));
+  }
+
+  return ret_value;
 }
 
 double BIBS::Agent::friendWeight(const IAgent *a) const {

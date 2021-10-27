@@ -26,6 +26,7 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 #include <memory>
+#include <random>
 
 TEST(MockAgent, UUIDConstructor) {
   auto uuid = boost::uuids::random_generator_mt19937()();
@@ -149,4 +150,62 @@ TEST(Agent, setFriendWeightUpdating) {
   a1.setFriendWeight(a2.get(), 1.0);
 
   EXPECT_EQ(a1.friendWeight(a2.get()), 1.0);
+}
+
+class AgentWithObservedWrapper : public BIBS::Agent {
+public:
+  using Agent::Agent;
+
+  double observedW(const BIBS::IBelief *b, const BIBS::sim_time_t t) const {
+    return observed(b, t);
+  }
+};
+
+TEST(Agent, observed) {
+  auto a1 = AgentWithObservedWrapper();
+  auto uuidGen = boost::uuids::random_generator_mt19937();
+
+  auto beh1 = std::make_unique<BIBS::testing::MockBehaviour>("beh1");
+  auto beh2 = std::make_unique<BIBS::testing::MockBehaviour>("beh2");
+
+  std::unique_ptr<BIBS::testing::MockAgent> as[5];
+  double weights[5];
+
+  std::random_device rd;
+  std::default_random_engine eng(rd());
+  std::uniform_real_distribution<double> distr(0, 1);
+
+  for (size_t i = 0; i < 5; ++i) {
+    as[i] = std::make_unique<BIBS::testing::MockAgent>(uuidGen());
+    EXPECT_CALL(*as[i], performed(2));
+
+    if (i % 2 == 0) {
+      ON_CALL(*as[i], performed(2)).WillByDefault(testing::Return(beh1.get()));
+    } else {
+      ON_CALL(*as[i], performed(2)).WillByDefault(testing::Return(beh2.get()));
+    }
+
+    weights[i] = distr(eng);
+    a1.setFriendWeight(as[i].get(), weights[i]);
+  }
+
+  auto bel = std::make_unique<BIBS::testing::MockBelief>("b1");
+  EXPECT_CALL(*bel, observedBehaviourRelationship(beh1.get())).Times(3);
+  ON_CALL(*bel, observedBehaviourRelationship(beh1.get()))
+      .WillByDefault(testing::Return(-1.2));
+  EXPECT_CALL(*bel, observedBehaviourRelationship(beh2.get())).Times(2);
+  ON_CALL(*bel, observedBehaviourRelationship(beh2.get()))
+      .WillByDefault(testing::Return(1.4));
+
+  double expected_ret = 0.0;
+
+  for (size_t i = 0; i < 5; ++i) {
+    if (i % 2 == 0) {
+      expected_ret += -1.2 * weights[i];
+    } else {
+      expected_ret += 1.4 * weights[i];
+    }
+  }
+
+  EXPECT_EQ(a1.observedW(bel.get(), 2), expected_ret);
 }

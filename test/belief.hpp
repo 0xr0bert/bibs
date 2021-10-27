@@ -30,6 +30,7 @@
 
 namespace BIBS::testing {
 class MockBelief : public BIBS::IBelief {
+public:
   using IBelief::IBelief;
 
   MOCK_METHOD(double, beliefRelationship, (const IBelief *b2),
