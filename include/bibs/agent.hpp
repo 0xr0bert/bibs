@@ -74,6 +74,17 @@ public:
    * @return The performed behaviour.
    */
   virtual const IBehaviour *performed(const sim_time_t t) const = 0;
+
+protected:
+  /**
+   * Calculates and returns the value of observing behaviour relevant to belief
+   * b at time t.
+   *
+   * @param b The belief.
+   * @param t The time.
+   * @return The value of observing relevant behaviour.
+   */
+  virtual double observed(const IBelief *b, const sim_time_t t) const = 0;
 };
 
 /**
@@ -151,6 +162,17 @@ public:
    * @param b The behaviour.
    */
   void _addPerformed(const sim_time_t t, const IBehaviour *b);
+
+protected:
+  /**
+   * Calculates and returns the value of observing behaviour relevant to belief
+   * b at time t.
+   *
+   * @param b The belief.
+   * @param t The time.
+   * @return The value of observing relevant behaviour.
+   */
+  virtual double observed(const IBelief *b, const sim_time_t t) const override;
 };
 } // namespace BIBS
 

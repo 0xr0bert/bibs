@@ -18,6 +18,7 @@
 #include "bibs/agent.hpp"
 
 #include <boost/uuid/uuid_generators.hpp>
+#include <stdexcept>
 
 BIBS::IAgent::IAgent(const boost::uuids::uuid uuid) : uuid(uuid) {}
 
@@ -46,4 +47,8 @@ const BIBS::IBehaviour *BIBS::Agent::performed(const sim_time_t t) const {
 
 void BIBS::Agent::_addPerformed(const sim_time_t t, const IBehaviour *b) {
   performedMap.insert_or_assign(t, b);
+}
+
+double BIBS::Agent::observed(const IBelief *b, const sim_time_t t) const {
+  throw std::logic_error("Not implemented");
 }

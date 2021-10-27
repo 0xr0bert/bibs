@@ -26,6 +26,7 @@
  */
 
 #include "bibs/agent.hpp"
+#include "bibs/bibs.hpp"
 #include "gmock/gmock.h"
 
 namespace BIBS::testing {
@@ -37,6 +38,10 @@ class MockAgent : public BIBS::IAgent {
               (const, override));
 
   MOCK_METHOD(const IBehaviour *, performed, (const sim_time_t t),
+              (const, override));
+
+  MOCK_METHOD(double, observed,
+              (const BIBS::IBelief *b, const BIBS::sim_time_t t),
               (const, override));
 };
 } // namespace BIBS::testing
