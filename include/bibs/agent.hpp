@@ -174,6 +174,15 @@ public:
    */
   void setFriendWeight(const IAgent *a, double w);
 
+  /**
+   * The amount the activation of b changes (multiplicative) at each time step.
+   *
+   * @param b The belief.
+   * @return The amount the activation of b changes (multiplicative) at each
+   * time step.
+   */
+  virtual double timeDelta(const IBelief *b) const;
+
 protected:
   /**
    * Calculates and returns the value of observing behaviour relevant to belief
@@ -203,15 +212,6 @@ protected:
    * @return The contextual value of observing relevant behaviour.
    */
   virtual double contextualObserved(const IBelief *b, const sim_time_t t) const;
-
-  /**
-   * The amount the activation of b changes (multiplicative) at each time step.
-   *
-   * @param b The belief.
-   * @return The amount the activation of b changes (multiplicative) at each
-   * time step.
-   */
-  virtual double timeDelta(const IBelief *b) const;
 };
 } // namespace BIBS
 
