@@ -21,6 +21,7 @@
 #include "agent.hpp"
 #include "behaviour.hpp"
 #include "belief.hpp"
+#include <boost/uuid/random_generator.hpp>
 #include <boost/uuid/uuid_generators.hpp>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
@@ -120,14 +121,16 @@ TEST(Agent, performWhenFound) {
 
 TEST(Agent, friendWeightWhenNotFound) {
   auto a1 = BIBS::Agent();
-  auto a2 = std::make_unique<BIBS::Agent>();
+  auto a2 = std::make_unique<BIBS::testing::MockAgent>(
+      boost::uuids::random_generator_mt19937()());
 
   EXPECT_THROW(a1.friendWeight(a2.get()), std::out_of_range);
 }
 
 TEST(Agent, friendWeightWhenFoundAndSet) {
   auto a1 = BIBS::Agent();
-  auto a2 = std::make_unique<BIBS::Agent>();
+  auto a2 = std::make_unique<BIBS::testing::MockAgent>(
+      boost::uuids::random_generator_mt19937()());
 
   a1.setFriendWeight(a2.get(), 5.0);
 
@@ -136,7 +139,8 @@ TEST(Agent, friendWeightWhenFoundAndSet) {
 
 TEST(Agent, setFriendWeightUpdating) {
   auto a1 = BIBS::Agent();
-  auto a2 = std::make_unique<BIBS::Agent>();
+  auto a2 = std::make_unique<BIBS::testing::MockAgent>(
+      boost::uuids::random_generator_mt19937()());
 
   a1.setFriendWeight(a2.get(), 5.0);
 

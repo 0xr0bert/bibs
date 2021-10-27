@@ -31,6 +31,7 @@
 
 namespace BIBS::testing {
 class MockAgent : public BIBS::IAgent {
+public:
   using IAgent::IAgent;
 
   MOCK_METHOD(double, activation,
