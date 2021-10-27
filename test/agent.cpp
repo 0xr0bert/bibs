@@ -334,3 +334,49 @@ TEST(Agent, setTimeDeltaUpdating) {
 
   EXPECT_DOUBLE_EQ(a.timeDelta(b.get()), 5.0);
 }
+
+class AgentUpdateActivationTest : public BIBS::Agent {
+public:
+  using Agent::Agent;
+
+  MOCK_METHOD(double, contextualObserved,
+              (const BIBS::IBelief *b, const BIBS::sim_time_t t),
+              (const, override));
+
+  MOCK_METHOD(double, timeDelta, (const BIBS::IBelief *b), (const, override));
+  MOCK_METHOD(double, activation,
+              (const BIBS::sim_time_t t, const BIBS::IBelief *b),
+              (const, override));
+
+  double activationW(const BIBS::sim_time_t t, const BIBS::IBelief *b) const {
+    return BIBS::Agent::activation(t, b);
+  }
+};
+
+TEST(Agent, updateActivation) {
+  AgentUpdateActivationTest a;
+  auto b = std::make_unique<BIBS::testing::MockBelief>("b1");
+
+  std::random_device rd;
+  std::default_random_engine eng(rd());
+  std::uniform_real_distribution<double> distr(0, 1);
+
+  double co = distr(eng);
+  double td = distr(eng);
+  double oldActivation = distr(eng);
+  double newActivation = td * oldActivation + co;
+
+  EXPECT_CALL(a, contextualObserved(b.get(), 4));
+  ON_CALL(a, contextualObserved(b.get(), 4)).WillByDefault(testing::Return(co));
+
+  EXPECT_CALL(a, timeDelta(b.get()));
+  ON_CALL(a, timeDelta(b.get())).WillByDefault(testing::Return(td));
+
+  EXPECT_CALL(a, activation(4, b.get()));
+  ON_CALL(a, activation(4, b.get()))
+      .WillByDefault(testing::Return(oldActivation));
+
+  a.updateActivation(5, b.get());
+
+  EXPECT_DOUBLE_EQ(a.activationW(5, b.get()), newActivation);
+}

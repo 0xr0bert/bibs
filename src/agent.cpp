@@ -16,6 +16,7 @@
  */
 
 #include "bibs/agent.hpp"
+#include "bibs/belief.hpp"
 #include "bibs/bibs.hpp"
 
 #include <boost/uuid/uuid_generators.hpp>
@@ -92,5 +93,13 @@ void BIBS::Agent::setTimeDelta(const IBelief *b, const double td) {
 }
 
 void BIBS::Agent::updateActivation(const sim_time_t t, const IBelief *b) {
-  throw std::logic_error("Not implemented");
+  double newActivation =
+      timeDelta(b) * activation(t - 1, b) + contextualObserved(b, t - 1);
+  try {
+    activationMap.at(t).emplace(b, newActivation);
+  } catch (const std::out_of_range &) {
+    std::map<const IBelief *, double> m;
+    activationMap.emplace(t, m);
+    activationMap.at(t).emplace(b, newActivation);
+  }
 }
