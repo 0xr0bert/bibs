@@ -52,3 +52,11 @@ void BIBS::Agent::_addPerformed(const sim_time_t t, const IBehaviour *b) {
 double BIBS::Agent::observed(const IBelief *b, const sim_time_t t) const {
   throw std::logic_error("Not implemented");
 }
+
+double BIBS::Agent::friendWeight(const IAgent *a) const {
+  throw std::logic_error("Not implemented");
+}
+
+void BIBS::Agent::setFriendWeight(const IAgent *a, double w) {
+  throw std::logic_error("Not implemented");
+}

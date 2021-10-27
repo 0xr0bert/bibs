@@ -102,6 +102,11 @@ private:
    */
   std::map<sim_time_t, const IBehaviour *> performedMap;
 
+  /**
+   * The weights in social networks of agents
+   */
+  std::map<const IAgent *, double> friends;
+
 public:
   /**
    * Create a new Agent.
@@ -162,6 +167,23 @@ public:
    * @param b The behaviour.
    */
   void _addPerformed(const sim_time_t t, const IBehaviour *b);
+
+  /**
+   * Gets the weight of relationship between this agent and another agent a.
+   *
+   * @param a The other agent.
+   * @return The weight of relationship.
+   * @exception std::out_of_range if this agent is not friends with a.
+   */
+  double friendWeight(const IAgent *a) const;
+
+  /**
+   * Sets the weight of relationship between this agent and another agent a.
+   *
+   * @param a The other agent.
+   * @param w The new weight.
+   */
+  void setFriendWeight(const IAgent *a, double w);
 
 protected:
   /**
