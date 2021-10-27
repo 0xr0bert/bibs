@@ -262,7 +262,8 @@ TEST(Agent, contextualise) {
   for (size_t i = 0; i < 5; ++i) {
     value_to_exp += activationMap[bs[i].get()] * rels[i];
   }
-  EXPECT_EQ(a.contextualiseW(bs[0].get(), 2), exp(value_to_exp));
+
+  EXPECT_DOUBLE_EQ(a.contextualiseW(bs[0].get(), 2), std::exp(value_to_exp));
 }
 
 class AgentContextualObservedTest : public BIBS::Agent {
@@ -301,5 +302,5 @@ TEST(Agent, contextualObserved) {
   EXPECT_CALL(a, contextualise(b.get(), 2));
   ON_CALL(a, contextualise(b.get(), 2)).WillByDefault(testing::Return(context));
 
-  EXPECT_EQ(a.contextualObservedW(b.get(), 2), conObs);
+  EXPECT_DOUBLE_EQ(a.contextualObservedW(b.get(), 2), conObs);
 }
