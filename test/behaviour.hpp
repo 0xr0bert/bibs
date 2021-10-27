@@ -25,6 +25,9 @@
  * This module contains MockBehaviour
  */
 
+#ifndef BIBS_TESTING_BEHAVIOUR_H
+#define BIBS_TESTING_BEHAVIOUR_H
+
 #include "bibs/behaviour.hpp"
 #include "gmock/gmock.h"
 
@@ -33,3 +36,5 @@ class MockBehaviour : public BIBS::IBehaviour {
   using IBehaviour::IBehaviour;
 };
 } // namespace BIBS::testing
+
+#endif // BIBS_TESTING_BEHAVIOUR_H
