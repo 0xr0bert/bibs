@@ -30,6 +30,7 @@
 #include <gtest/gtest.h>
 #include <memory>
 #include <random>
+#include <stdexcept>
 
 TEST(MockAgent, UUIDConstructor) {
   auto uuid = boost::uuids::random_generator_mt19937()();
@@ -303,4 +304,33 @@ TEST(Agent, contextualObserved) {
   ON_CALL(a, contextualise(b.get(), 2)).WillByDefault(testing::Return(context));
 
   EXPECT_DOUBLE_EQ(a.contextualObservedW(b.get(), 2), conObs);
+}
+
+TEST(Agent, timeDeltaWhenNotFound) {
+  BIBS::Agent a;
+  auto b = std::make_unique<BIBS::testing::MockBelief>("b1");
+
+  EXPECT_THROW(a.timeDelta(b.get()), std::out_of_range);
+}
+
+TEST(Agent, timeDeltaWhenFoundAndSet) {
+  BIBS::Agent a;
+  auto b = std::make_unique<BIBS::testing::MockBelief>("b1");
+
+  a.setTimeDelta(b.get(), 2.0);
+
+  EXPECT_DOUBLE_EQ(a.timeDelta(b.get()), 2.0);
+}
+
+TEST(Agent, setTimeDeltaUpdating) {
+  BIBS::Agent a;
+  auto b = std::make_unique<BIBS::testing::MockBelief>("b1");
+
+  a.setTimeDelta(b.get(), 2.0);
+
+  EXPECT_DOUBLE_EQ(a.timeDelta(b.get()), 2.0);
+
+  a.setTimeDelta(b.get(), 5.0);
+
+  EXPECT_DOUBLE_EQ(a.timeDelta(b.get()), 5.0);
 }

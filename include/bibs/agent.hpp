@@ -185,6 +185,7 @@ public:
    * @param b The belief.
    * @return The amount the activation of b changes (multiplicative) at each
    * time step.
+   * @exception std::out_of_range If the belief is not found.
    */
   virtual double timeDelta(const IBelief *b) const;
 
