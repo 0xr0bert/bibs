@@ -80,5 +80,5 @@ double BIBS::Agent::contextualise(const IBelief *b, const sim_time_t t) const {
 
 double BIBS::Agent::contextualObserved(const IBelief *b,
                                        const sim_time_t t) const {
-  throw std::logic_error("Not implemented");
+  return contextualise(b, t) * observed(b, t);
 }

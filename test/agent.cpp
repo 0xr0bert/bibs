@@ -262,6 +262,44 @@ TEST(Agent, contextualise) {
   for (size_t i = 0; i < 5; ++i) {
     value_to_exp += activationMap[bs[i].get()] * rels[i];
   }
-
   EXPECT_EQ(a.contextualiseW(bs[0].get(), 2), exp(value_to_exp));
+}
+
+class AgentContextualObservedTest : public BIBS::Agent {
+public:
+  using Agent::Agent;
+
+  MOCK_METHOD(double, observed,
+              (const BIBS::IBelief *b, const BIBS::sim_time_t t),
+              (const, override));
+
+  MOCK_METHOD(double, contextualise,
+              (const BIBS::IBelief *b, const BIBS::sim_time_t t),
+              (const, override));
+
+  double contextualObservedW(const BIBS::IBelief *b,
+                             const BIBS::sim_time_t t) const {
+    return contextualObserved(b, t);
+  }
+};
+
+TEST(Agent, contextualObserved) {
+  AgentContextualObservedTest a;
+  auto b = std::make_unique<BIBS::testing::MockBelief>("b1");
+
+  std::random_device rd;
+  std::default_random_engine eng(rd());
+  std::uniform_real_distribution<double> distr(-1, 1);
+
+  double obs = distr(eng);
+  double context = distr(eng);
+  double conObs = obs * context;
+
+  EXPECT_CALL(a, observed(b.get(), 2));
+  ON_CALL(a, observed(b.get(), 2)).WillByDefault(testing::Return(obs));
+
+  EXPECT_CALL(a, contextualise(b.get(), 2));
+  ON_CALL(a, contextualise(b.get(), 2)).WillByDefault(testing::Return(context));
+
+  EXPECT_EQ(a.contextualObservedW(b.get(), 2), conObs);
 }
