@@ -85,6 +85,15 @@ protected:
    * @return The value of observing relevant behaviour.
    */
   virtual double observed(const IBelief *b, const sim_time_t t) const = 0;
+
+  /**
+   * Put something into context of the other beliefs held.
+   *
+   * @param b The belief to put into context.
+   * @param t The time.
+   * @return The weight used to put into context.
+   */
+  virtual double contextualise(const IBelief *b, const sim_time_t t) const = 0;
 };
 
 /**
@@ -195,6 +204,16 @@ protected:
    * @return The value of observing relevant behaviour.
    */
   virtual double observed(const IBelief *b, const sim_time_t t) const override;
+
+  /**
+   * Put something into context of the other beliefs held.
+   *
+   * @param b The belief to put into context.
+   * @param t The time.
+   * @return The weight used to put into context.
+   */
+  virtual double contextualise(const IBelief *b,
+                               const sim_time_t t) const override;
 };
 } // namespace BIBS
 

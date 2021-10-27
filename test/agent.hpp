@@ -47,6 +47,9 @@ public:
   MOCK_METHOD(double, observed,
               (const BIBS::IBelief *b, const BIBS::sim_time_t t),
               (const, override));
+
+  MOCK_METHOD(double, contextualise,
+              (const BIBS::IBelief *b, const sim_time_t t), (const, override));
 };
 } // namespace BIBS::testing
 

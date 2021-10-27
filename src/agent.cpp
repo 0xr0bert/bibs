@@ -16,6 +16,7 @@
  */
 
 #include "bibs/agent.hpp"
+#include "bibs/bibs.hpp"
 
 #include <boost/uuid/uuid_generators.hpp>
 #include <stdexcept>
@@ -64,4 +65,8 @@ double BIBS::Agent::friendWeight(const IAgent *a) const {
 
 void BIBS::Agent::setFriendWeight(const IAgent *a, double w) {
   friends.insert_or_assign(a, w);
+}
+
+double BIBS::Agent::contextualise(const IBelief *b, sim_time_t t) const {
+  throw std::logic_error("Not implemented");
 }
