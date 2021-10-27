@@ -90,3 +90,7 @@ double BIBS::Agent::timeDelta(const IBelief *b) const {
 void BIBS::Agent::setTimeDelta(const IBelief *b, const double td) {
   timeDeltaMap.insert_or_assign(b, td);
 }
+
+void BIBS::Agent::updateActivation(const sim_time_t t, const IBelief *b) {
+  throw std::logic_error("Not implemented");
+}

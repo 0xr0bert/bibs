@@ -29,6 +29,7 @@
 #define BIBS_TESTING_AGENT_H
 
 #include "bibs/agent.hpp"
+#include "bibs/belief.hpp"
 #include "bibs/bibs.hpp"
 #include "gmock/gmock.h"
 
@@ -43,6 +44,9 @@ public:
 
   MOCK_METHOD(const IBehaviour *, performed, (const sim_time_t t),
               (const, override));
+
+  MOCK_METHOD(void, updateActivation,
+              (const BIBS::sim_time_t t, const BIBS::IBelief *b), (override));
 };
 } // namespace BIBS::testing
 

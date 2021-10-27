@@ -68,6 +68,16 @@ public:
   virtual double activation(const sim_time_t t, const IBelief *b) const = 0;
 
   /**
+   * Updates the activation of the belief at time t.
+   *
+   * How this occurs is left to sub-classes.
+   *
+   * @param t The time.
+   * @param b The belief.
+   */
+  virtual void updateActivation(const sim_time_t t, const IBelief *b) = 0;
+
+  /**
    * Gets the behaviour of the agent at a time.
    *
    * @param t The time.
@@ -197,6 +207,16 @@ public:
    * @param td The new time delta.
    */
   void setTimeDelta(const IBelief *b, const double td);
+
+  /**
+   * Updates the activation of the belief at time t.
+   *
+   * This is timeDelta(b) * activation(t, b-1) + contextualObserved(b, t)
+   *
+   * @param t The time.
+   * @param b The belief.
+   */
+  virtual void updateActivation(const sim_time_t t, const IBelief *b) override;
 
 protected:
   /**
