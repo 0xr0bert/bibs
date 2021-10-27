@@ -25,6 +25,9 @@
  * This module mocks Belief
  */
 
+#ifndef BIBS_TESTING_BELIEF_H
+#define BIBS_TESTING_BELIEF_H
+
 #include "bibs/belief.hpp"
 #include "gmock/gmock.h"
 
@@ -52,3 +55,5 @@ public:
               (const IBehaviour *beh, const double value), (override));
 };
 } // namespace BIBS::testing
+
+#endif // BIBS_TESTING_BELIEF_H
