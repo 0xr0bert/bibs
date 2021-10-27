@@ -21,8 +21,11 @@
 #include "agent.hpp"
 #include "behaviour.hpp"
 #include "belief.hpp"
+#include "bibs/bibs.hpp"
+#include <boost/format.hpp>
 #include <boost/uuid/random_generator.hpp>
 #include <boost/uuid/uuid_generators.hpp>
+#include <cstdio>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 #include <memory>
@@ -208,4 +211,57 @@ TEST(Agent, observed) {
   }
 
   EXPECT_EQ(a1.observedW(bel.get(), 2), expected_ret);
+}
+
+class AgentWithContextualiseWrapper : public BIBS::Agent {
+public:
+  using Agent::Agent;
+
+  double contextualiseW(const BIBS::IBelief *b,
+                        const BIBS::sim_time_t t) const {
+    return contextualise(b, t);
+  }
+};
+
+TEST(Agent, contextualise) {
+  std::unique_ptr<BIBS::testing::MockBelief> bs[5];
+  std::map<const BIBS::IBelief *, double> activationMap;
+
+  std::random_device rd;
+  std::default_random_engine eng(rd());
+  std::uniform_real_distribution<double> distr(0, 1);
+
+  for (size_t i = 0; i < 5; ++i) {
+    bs[i] = std::make_unique<BIBS::testing::MockBelief>(
+        boost::str(boost::format("b%1%") % i));
+    activationMap[bs[i].get()] = distr(eng);
+  }
+
+  EXPECT_CALL(*bs[0], beliefRelationship(bs[0].get()));
+  ON_CALL(*bs[0], beliefRelationship(bs[0].get()))
+      .WillByDefault(testing::Return(0.0));
+
+  double rels[5];
+  rels[0] = 0;
+
+  for (size_t i = 1; i < 5; ++i) {
+    rels[i] = distr(eng);
+    EXPECT_CALL(*bs[0], beliefRelationship(bs[i].get()));
+    ON_CALL(*bs[0], beliefRelationship(bs[i].get()))
+        .WillByDefault(testing::Return(rels[i]));
+  }
+
+  std::map<BIBS::sim_time_t, std::map<const BIBS::IBelief *, double>>
+      tActivationMap;
+  tActivationMap.emplace(2, activationMap);
+
+  auto a = AgentWithContextualiseWrapper(tActivationMap);
+
+  double value_to_exp = 0.0;
+
+  for (size_t i = 0; i < 5; ++i) {
+    value_to_exp += activationMap[bs[i].get()] * rels[i];
+  }
+
+  EXPECT_EQ(a.contextualiseW(bs[0].get(), 2), exp(value_to_exp));
 }

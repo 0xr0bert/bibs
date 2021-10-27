@@ -19,6 +19,7 @@
 #include "bibs/bibs.hpp"
 
 #include <boost/uuid/uuid_generators.hpp>
+#include <cmath>
 #include <stdexcept>
 
 BIBS::IAgent::IAgent(const boost::uuids::uuid uuid) : uuid(uuid) {}
@@ -68,5 +69,11 @@ void BIBS::Agent::setFriendWeight(const IAgent *a, double w) {
 }
 
 double BIBS::Agent::contextualise(const IBelief *b, sim_time_t t) const {
-  throw std::logic_error("Not implemented");
+  double value_to_exp = 0.0;
+
+  for (auto const &[b2, act] : activationMap.at(t)) {
+    value_to_exp += act * b->beliefRelationship(b2);
+  }
+
+  return std::exp(value_to_exp);
 }
