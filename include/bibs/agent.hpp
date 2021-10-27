@@ -74,37 +74,6 @@ public:
    * @return The performed behaviour.
    */
   virtual const IBehaviour *performed(const sim_time_t t) const = 0;
-
-protected:
-  /**
-   * Calculates and returns the value of observing behaviour relevant to belief
-   * b at time t.
-   *
-   * @param b The belief.
-   * @param t The time.
-   * @return The value of observing relevant behaviour.
-   */
-  virtual double observed(const IBelief *b, const sim_time_t t) const = 0;
-
-  /**
-   * Put something into context of the other beliefs held.
-   *
-   * @param b The belief to put into context.
-   * @param t The time.
-   * @return The weight used to put into context.
-   */
-  virtual double contextualise(const IBelief *b, const sim_time_t t) const = 0;
-
-  /**
-   * Calculates and returns the value of observing behaviour relevant to belief
-   * b at time t, taking into context the beliefs this agent holds.
-   *
-   * @param b The belief.
-   * @param t The time.
-   * @return The contextual value of observing relevant behaviour.
-   */
-  virtual double contextualObserved(const IBelief *b,
-                                    const sim_time_t t) const = 0;
 };
 
 /**
@@ -214,7 +183,7 @@ protected:
    * @param t The time.
    * @return The value of observing relevant behaviour.
    */
-  virtual double observed(const IBelief *b, const sim_time_t t) const override;
+  virtual double observed(const IBelief *b, const sim_time_t t) const;
 
   /**
    * Put something into context of the other beliefs held.
@@ -223,8 +192,7 @@ protected:
    * @param t The time.
    * @return The weight used to put into context.
    */
-  virtual double contextualise(const IBelief *b,
-                               const sim_time_t t) const override;
+  virtual double contextualise(const IBelief *b, const sim_time_t t) const;
 
   /**
    * Calculates and returns the value of observing behaviour relevant to belief
@@ -234,8 +202,7 @@ protected:
    * @param t The time.
    * @return The contextual value of observing relevant behaviour.
    */
-  virtual double contextualObserved(const IBelief *b,
-                                    const sim_time_t t) const override;
+  virtual double contextualObserved(const IBelief *b, const sim_time_t t) const;
 };
 } // namespace BIBS
 
