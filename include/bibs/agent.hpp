@@ -150,7 +150,7 @@ public:
    * @param t The time.
    * @param b The behaviour.
    */
-  const void _addPerformed(const sim_time_t t, const IBehaviour *b);
+  void _addPerformed(const sim_time_t t, const IBehaviour *b);
 };
 } // namespace BIBS
 

@@ -44,6 +44,6 @@ const BIBS::IBehaviour *BIBS::Agent::performed(const sim_time_t t) const {
   return performedMap.at(t);
 }
 
-const void BIBS::Agent::_addPerformed(const sim_time_t t, const IBehaviour *b) {
+void BIBS::Agent::_addPerformed(const sim_time_t t, const IBehaviour *b) {
   performedMap.insert_or_assign(t, b);
 }
