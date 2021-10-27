@@ -117,3 +117,32 @@ TEST(Agent, performWhenFound) {
 
   EXPECT_EQ(a.performed(10), b.get());
 }
+
+TEST(Agent, friendWeightWhenNotFound) {
+  auto a1 = BIBS::Agent();
+  auto a2 = std::make_unique<BIBS::Agent>();
+
+  EXPECT_THROW(a1.friendWeight(a2.get()), std::out_of_range);
+}
+
+TEST(Agent, friendWeightWhenFoundAndSet) {
+  auto a1 = BIBS::Agent();
+  auto a2 = std::make_unique<BIBS::Agent>();
+
+  a1.setFriendWeight(a2.get(), 5.0);
+
+  EXPECT_EQ(a1.friendWeight(a2.get()), 5.0);
+}
+
+TEST(Agent, setFriendWeightUpdating) {
+  auto a1 = BIBS::Agent();
+  auto a2 = std::make_unique<BIBS::Agent>();
+
+  a1.setFriendWeight(a2.get(), 5.0);
+
+  EXPECT_EQ(a1.friendWeight(a2.get()), 5.0);
+
+  a1.setFriendWeight(a2.get(), 1.0);
+
+  EXPECT_EQ(a1.friendWeight(a2.get()), 1.0);
+}
