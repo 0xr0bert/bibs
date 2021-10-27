@@ -96,6 +96,11 @@ private:
    */
   std::map<const IAgent *, double> friends;
 
+  /**
+   * The time deltas.
+   */
+  std::map<const IBelief *, double> timeDeltaMap;
+
 public:
   /**
    * Create a new Agent.
