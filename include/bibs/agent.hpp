@@ -183,6 +183,15 @@ public:
    */
   virtual double timeDelta(const IBelief *b) const;
 
+  /**
+   * Set the amount the activation of b changes (multiplicative) at each time
+   * step.
+   *
+   * @param b The belief.
+   * @param td The new time delta.
+   */
+  void setTimeDelta(const IBelief *b, const double td);
+
 protected:
   /**
    * Calculates and returns the value of observing behaviour relevant to belief

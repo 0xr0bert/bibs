@@ -86,3 +86,7 @@ double BIBS::Agent::contextualObserved(const IBelief *b,
 double BIBS::Agent::timeDelta(const IBelief *b) const {
   throw std::logic_error("Not implemented");
 }
+
+void BIBS::Agent::setTimeDelta(const IBelief *b, const double td) {
+  throw std::logic_error("Not implemented");
+}
