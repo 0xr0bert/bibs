@@ -25,6 +25,9 @@
  * This module contains Mock Agent
  */
 
+#ifndef BIBS_TESTING_AGENT_H
+#define BIBS_TESTING_AGENT_H
+
 #include "bibs/agent.hpp"
 #include "bibs/bibs.hpp"
 #include "gmock/gmock.h"
@@ -46,3 +49,5 @@ public:
               (const, override));
 };
 } // namespace BIBS::testing
+
+#endif // BIBS_TESTING_AGENT_H
