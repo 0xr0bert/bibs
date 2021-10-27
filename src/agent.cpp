@@ -68,7 +68,7 @@ void BIBS::Agent::setFriendWeight(const IAgent *a, double w) {
   friends.insert_or_assign(a, w);
 }
 
-double BIBS::Agent::contextualise(const IBelief *b, sim_time_t t) const {
+double BIBS::Agent::contextualise(const IBelief *b, const sim_time_t t) const {
   double value_to_exp = 0.0;
 
   for (auto const &[b2, act] : activationMap.at(t)) {
