@@ -19,7 +19,8 @@ gmock_dep = dependency('gmock', main : false, required : false)
 bibs_test_sources = [
   'agent.cpp',
   'behaviour.cpp',
-  'belief.cpp']
+  'belief.cpp',
+  'simulation.cpp']
 e = executable(
   'bibs-test',
   bibs_test_sources,
