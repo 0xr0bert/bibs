@@ -16,7 +16,7 @@
 
 project('bibs', 'cpp',
         default_options : ['cpp_std=c++17'],
-        version : '0.1.0',
+        version : '0.14.1',
         license : 'GPL-3.0-or-later')
 
 inc = include_directories('include')
