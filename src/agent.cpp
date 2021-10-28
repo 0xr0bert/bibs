@@ -114,3 +114,8 @@ double BIBS::Agent::contextualBeliefBehaviour(const IBelief *bel,
                                               const sim_time_t t) const {
   return contextualise(bel, t) * beliefBehaviour(bel, beh, t);
 }
+
+double BIBS::Agent::contextualBehaviour(const IBehaviour *b,
+                                        const sim_time_t t) const {
+  throw std::logic_error("Not implemented");
+}
