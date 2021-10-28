@@ -581,3 +581,42 @@ TEST(Agent, environment) {
 
   EXPECT_EQ(a.environmentW(&b, rand()), 0.0);
 }
+
+class AgentUtilityTest : public BIBS::Agent {
+public:
+  using Agent::Agent;
+
+  MOCK_METHOD(double, contextualBehaviour,
+              (const BIBS::IBehaviour *b, const BIBS::sim_time_t t),
+              (const, override));
+
+  MOCK_METHOD(double, environment,
+              (const BIBS::IBehaviour *b, const BIBS::sim_time_t t),
+              (const, override));
+
+  double utilityW(const BIBS::IBehaviour *b, const BIBS::sim_time_t t) const {
+    return utility(b, t);
+  }
+};
+
+TEST(Agent, utility) {
+  AgentUtilityTest a;
+
+  std::random_device rd;
+  std::default_random_engine eng(rd());
+  std::uniform_real_distribution<double> distr(0, 1);
+
+  double cb = distr(eng);
+  double env = distr(eng);
+  double ut = cb + env;
+
+  BIBS::testing::MockBehaviour b("b1");
+
+  EXPECT_CALL(a, contextualBehaviour(&b, 5));
+  ON_CALL(a, contextualBehaviour(&b, 5)).WillByDefault(testing::Return(cb));
+
+  EXPECT_CALL(a, environment(&b, 5));
+  ON_CALL(a, environment(&b, 5)).WillByDefault(testing::Return(env));
+
+  EXPECT_DOUBLE_EQ(a.utilityW(&b, 5), ut);
+}

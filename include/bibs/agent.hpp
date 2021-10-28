@@ -323,7 +323,7 @@ protected:
    * @param t The time.
    * @return t The utility.
    */
-  virtual double utility(const IBehaviour *b, const sim_time_t) const;
+  virtual double utility(const IBehaviour *b, const sim_time_t t) const;
 };
 } // namespace BIBS
 
