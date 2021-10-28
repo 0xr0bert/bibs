@@ -49,6 +49,8 @@ public:
 
   /**
    * Run the simulation for n days.
+   *
+   * @param nDays the number of days.
    */
   virtual void run(sim_time_t nDays) = 0;
 };
