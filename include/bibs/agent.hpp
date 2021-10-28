@@ -34,7 +34,7 @@
 
 #include <boost/uuid/uuid.hpp>
 #include <map>
-#include <memory>
+#include <vector>
 
 namespace BIBS {
 /**
@@ -299,11 +299,10 @@ protected:
    * Gets the beliefs held at time t.
    *
    * @param t The time.
-   * @return A C-style array terminated by a nullptr of held beliefs.
+   * @return A vector of held beliefs.
    * @exception std::out_of_range If the time is not found.
    */
-  virtual std::unique_ptr<const IBelief *>
-  heldBeliefs(const sim_time_t t) const;
+  virtual std::vector<const IBelief *> heldBeliefs(const sim_time_t t) const;
 };
 } // namespace BIBS
 

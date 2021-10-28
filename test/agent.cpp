@@ -515,3 +515,34 @@ TEST(Agent, contextualBehaviour) {
 
   EXPECT_DOUBLE_EQ(a.contextualBehaviourW(beh.get(), 5), cb);
 }
+
+class AgentHeldBeliefsTest : public BIBS::Agent {
+public:
+  using Agent::Agent;
+
+  std::vector<const BIBS::IBelief *>
+  heldBeliefsW(const BIBS::sim_time_t t) const {
+    return heldBeliefs(t);
+  }
+};
+
+TEST(Agent, heldBeliefs) {
+  std::unique_ptr<BIBS::IBelief> beliefs[5];
+  std::map<const BIBS::IBelief *, double> activations;
+
+  for (size_t i = 0; i < 5; ++i) {
+    beliefs[i] = std::make_unique<BIBS::testing::MockBelief>(
+        boost::str(boost::format("b%1%") % i));
+    activations.emplace(beliefs[i].get(), 0);
+  }
+
+  std::map<BIBS::sim_time_t, std::map<const BIBS::IBelief *, double>>
+      activationTimes;
+  activationTimes.emplace(5, activations);
+
+  AgentHeldBeliefsTest a(activationTimes);
+
+  auto bs = a.heldBeliefsW(5);
+
+  EXPECT_EQ(bs.size(), 5);
+}

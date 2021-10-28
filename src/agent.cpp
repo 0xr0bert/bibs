@@ -21,6 +21,8 @@
 
 #include <boost/uuid/uuid_generators.hpp>
 #include <cmath>
+#include <gmock/gmock-actions.h>
+#include <memory>
 #include <stdexcept>
 
 BIBS::IAgent::IAgent(const boost::uuids::uuid uuid) : uuid(uuid) {}
@@ -126,5 +128,17 @@ double BIBS::Agent::contextualBehaviour(const IBehaviour *b,
   return returnVal;
 }
 
-std::unique_ptr<const BIBS::IBelief *>
-BIBS::Agent::heldBeliefs(const sim_time_t t) const {}
+std::vector<const BIBS::IBelief *>
+BIBS::Agent::heldBeliefs(const sim_time_t t) const {
+  auto nBeliefs = activationMap.at(t).size();
+
+  std::vector<const BIBS::IBelief *> returnVal(nBeliefs);
+
+  size_t i = 0;
+  for (const auto &[belief, _v] : activationMap.at(t)) {
+    returnVal[i] = belief;
+    ++i;
+  }
+
+  return returnVal;
+}
