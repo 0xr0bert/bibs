@@ -419,3 +419,49 @@ TEST(Agent, beliefBehaviour) {
 
   EXPECT_DOUBLE_EQ(a.beliefBehaviourW(bel.get(), beh.get(), 5), bb);
 }
+
+class AgentContextualBeliefBehaviourTest : public BIBS::Agent {
+public:
+  using Agent::Agent;
+
+  MOCK_METHOD(double, beliefBehaviour,
+              (const BIBS::IBelief *bel, const BIBS::IBehaviour *beh,
+               const BIBS::sim_time_t t),
+              (const, override));
+
+  MOCK_METHOD(double, contextualise,
+              (const BIBS::IBelief *bel, const BIBS::sim_time_t t),
+              (const, override));
+
+  double contextualBeliefBehaviourW(const BIBS::IBelief *bel,
+                                    const BIBS::IBehaviour *beh,
+                                    const BIBS::sim_time_t t) const {
+    return contextualBeliefBehaviour(bel, beh, t);
+  }
+};
+
+TEST(Agent, contextualBeliefBehaviour) {
+  auto beh = std::make_unique<BIBS::testing::MockBehaviour>("b1");
+  auto bel = std::make_unique<BIBS::testing::MockBelief>("b1");
+
+  std::random_device rd;
+  std::default_random_engine eng(rd());
+  std::uniform_real_distribution<double> distr(0, 1);
+
+  double context = distr(eng);
+  double bb = distr(eng);
+  double contextBB = context * bb;
+
+  AgentContextualBeliefBehaviourTest a;
+
+  EXPECT_CALL(a, contextualise(bel.get(), 5));
+  ON_CALL(a, contextualise(bel.get(), 5))
+      .WillByDefault(testing::Return(context));
+
+  EXPECT_CALL(a, beliefBehaviour(bel.get(), beh.get(), 5));
+  ON_CALL(a, beliefBehaviour(bel.get(), beh.get(), 5))
+      .WillByDefault(testing::Return(bb));
+
+  EXPECT_DOUBLE_EQ(a.contextualBeliefBehaviourW(bel.get(), beh.get(), 5),
+                   contextBB);
+}
