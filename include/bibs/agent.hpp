@@ -263,6 +263,22 @@ protected:
    */
   virtual double beliefBehaviour(const IBelief *bel, const IBehaviour *beh,
                                  const sim_time_t t) const;
+
+  /**
+   * Calculates and returns the (contextual) impetus to perform behaviour
+   * beh given that you hold belief bel at time t.
+   *
+   * @param bel The belief.
+   * @param beh The behaviour.
+   * @param t The time.
+   * @return The (contextual) impetus to perform the behaviour.
+   * @exception std::out_of_range If this agent does not hold the belief, or if
+   *   there is not a performingBehaviourRelationship defined for that belief
+   *   and behaviour.
+   */
+  virtual double contextualBeliefBehaviour(const IBelief *bel,
+                                           const IBehaviour *beh,
+                                           const sim_time_t t) const;
 };
 } // namespace BIBS
 
