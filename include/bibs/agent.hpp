@@ -293,6 +293,15 @@ protected:
    */
   virtual double contextualBehaviour(const IBehaviour *b,
                                      const sim_time_t t) const;
+
+  /**
+   * Gets the beliefs held at time t.
+   *
+   * @param t The time.
+   * @return A C-style array terminated by a nullptr of held beliefs.
+   * @exception std::out_of_range If the time is not found.
+   */
+  virtual const IBelief **heldBeliefs(const sim_time_t t) const;
 };
 } // namespace BIBS
 
