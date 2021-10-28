@@ -94,6 +94,18 @@ public:
    */
   virtual void perform(const sim_time_t t,
                        const std::vector<const IBehaviour *> &bs) = 0;
+
+  /**
+   * Performs one time step. Firstly, all activations are updated. Then a
+   * behaviour is performed.
+   *
+   * @param t The time.
+   * @param behs The behaviours.
+   * @param bels The beliefs.
+   */
+  virtual void tick(const sim_time_t t,
+                    const std::vector<const IBehaviour *> &behs,
+                    const std::vector<const IBelief *> &bels);
 };
 
 /**
