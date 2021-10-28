@@ -24,6 +24,7 @@
 #include <cmath>
 #include <gmock/gmock-actions.h>
 #include <memory>
+#include <random>
 #include <stdexcept>
 #include <vector>
 
@@ -157,5 +158,32 @@ double BIBS::Agent::utility(const IBehaviour *b, const sim_time_t t) const {
 
 void BIBS::Agent::perform(const sim_time_t t,
                           const std::vector<const IBehaviour *> &bs) {
-  throw std::logic_error("Not implemented");
+  double maxUtility = -DBL_MAX;
+  const IBehaviour *maxBehaviour = nullptr;
+
+  std::vector<const IBehaviour *> positiveBehaviours;
+  std::vector<double> positiveUtilities;
+
+  for (const auto &b : bs) {
+    auto ut = utility(b, t);
+    if (ut > maxUtility) {
+      maxUtility = ut;
+      maxBehaviour = b;
+    }
+    if (ut > 0) {
+      positiveBehaviours.push_back(b);
+      positiveUtilities.push_back(ut);
+    }
+  }
+
+  if (positiveUtilities.size() <= 1) {
+    performedMap[t] = maxBehaviour;
+  } else {
+    std::random_device rd;
+    std::default_random_engine eng(rd());
+    std::discrete_distribution<size_t> dist(positiveUtilities.begin(),
+                                            positiveUtilities.end());
+
+    performedMap[t] = positiveBehaviours[dist(eng)];
+  }
 }

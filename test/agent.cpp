@@ -620,3 +620,90 @@ TEST(Agent, utility) {
 
   EXPECT_DOUBLE_EQ(a.utilityW(&b, 5), ut);
 }
+
+class AgentPerformTest : public BIBS::Agent {
+public:
+  using Agent::Agent;
+
+  MOCK_METHOD(double, utility,
+              (const BIBS::IBehaviour *b, const BIBS::sim_time_t t), (const));
+};
+
+TEST(Agent, performWhenAllNegative) {
+  AgentPerformTest a;
+  std::vector<BIBS::IBehaviour> bsVector;
+  std::vector<const BIBS::IBehaviour *> bsPtrVector;
+  BIBS::sim_time_t t = 5;
+
+  for (size_t i = 0; i < 4; ++i) {
+    bsVector.push_back(
+        BIBS::testing::MockBehaviour(boost::str(boost::format("b%1%") % i)));
+    bsPtrVector.push_back(&bsVector[i]);
+  }
+
+  EXPECT_CALL(a, utility(bsPtrVector[0], t));
+  ON_CALL(a, utility(bsPtrVector[0], t)).WillByDefault(testing::Return(-10));
+  EXPECT_CALL(a, utility(bsPtrVector[1], t));
+  ON_CALL(a, utility(bsPtrVector[1], t)).WillByDefault(testing::Return(-20));
+  EXPECT_CALL(a, utility(bsPtrVector[2], t));
+  ON_CALL(a, utility(bsPtrVector[2], t)).WillByDefault(testing::Return(-1));
+  EXPECT_CALL(a, utility(bsPtrVector[3], t));
+  ON_CALL(a, utility(bsPtrVector[3], t)).WillByDefault(testing::Return(-10));
+
+  a.perform(t, bsPtrVector);
+
+  EXPECT_EQ(a.performed(t), bsPtrVector[2]);
+}
+
+TEST(Agent, performWhenOnePositive) {
+  AgentPerformTest a;
+  std::vector<BIBS::IBehaviour> bsVector;
+  std::vector<const BIBS::IBehaviour *> bsPtrVector;
+  BIBS::sim_time_t t = 5;
+
+  for (size_t i = 0; i < 4; ++i) {
+    bsVector.push_back(
+        BIBS::testing::MockBehaviour(boost::str(boost::format("b%1%") % i)));
+    bsPtrVector.push_back(&bsVector[i]);
+  }
+
+  EXPECT_CALL(a, utility(bsPtrVector[0], t));
+  ON_CALL(a, utility(bsPtrVector[0], t)).WillByDefault(testing::Return(-10));
+  EXPECT_CALL(a, utility(bsPtrVector[1], t));
+  ON_CALL(a, utility(bsPtrVector[1], t)).WillByDefault(testing::Return(-20));
+  EXPECT_CALL(a, utility(bsPtrVector[2], t));
+  ON_CALL(a, utility(bsPtrVector[2], t)).WillByDefault(testing::Return(1));
+  EXPECT_CALL(a, utility(bsPtrVector[3], t));
+  ON_CALL(a, utility(bsPtrVector[3], t)).WillByDefault(testing::Return(-10));
+
+  a.perform(t, bsPtrVector);
+
+  EXPECT_EQ(a.performed(t), bsPtrVector[2]);
+}
+
+TEST(Agent, performWhenTwoPositive) {
+  AgentPerformTest a;
+  std::vector<BIBS::IBehaviour> bsVector;
+  std::vector<const BIBS::IBehaviour *> bsPtrVector;
+  BIBS::sim_time_t t = 5;
+
+  for (size_t i = 0; i < 4; ++i) {
+    bsVector.push_back(
+        BIBS::testing::MockBehaviour(boost::str(boost::format("b%1%") % i)));
+    bsPtrVector.push_back(&bsVector[i]);
+  }
+
+  EXPECT_CALL(a, utility(bsPtrVector[0], t));
+  ON_CALL(a, utility(bsPtrVector[0], t)).WillByDefault(testing::Return(-10));
+  EXPECT_CALL(a, utility(bsPtrVector[1], t));
+  ON_CALL(a, utility(bsPtrVector[1], t)).WillByDefault(testing::Return(1));
+  EXPECT_CALL(a, utility(bsPtrVector[2], t));
+  ON_CALL(a, utility(bsPtrVector[2], t)).WillByDefault(testing::Return(1));
+  EXPECT_CALL(a, utility(bsPtrVector[3], t));
+  ON_CALL(a, utility(bsPtrVector[3], t)).WillByDefault(testing::Return(-10));
+
+  a.perform(t, bsPtrVector);
+
+  EXPECT_TRUE(a.performed(t) == bsPtrVector[1] ||
+              a.performed(t) == bsPtrVector[2]);
+}
