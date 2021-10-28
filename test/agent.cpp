@@ -26,6 +26,7 @@
 #include <boost/uuid/random_generator.hpp>
 #include <boost/uuid/uuid_generators.hpp>
 #include <cstdio>
+#include <gmock/gmock-actions.h>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 #include <memory>
@@ -379,4 +380,42 @@ TEST(Agent, updateActivation) {
   a.updateActivation(5, b.get());
 
   EXPECT_DOUBLE_EQ(a.activationW(5, b.get()), newActivation);
+}
+
+class AgentBeliefBehaviourTest : public BIBS::Agent {
+public:
+  using Agent::Agent;
+
+  MOCK_METHOD(double, activation,
+              (const BIBS::sim_time_t t, const BIBS::IBelief *b),
+              (const, override));
+
+  double beliefBehaviourW(const BIBS::IBelief *bel, const BIBS::IBehaviour *beh,
+                          const BIBS::sim_time_t t) const {
+    return beliefBehaviour(bel, beh, t);
+  }
+};
+
+TEST(Agent, beliefBehaviour) {
+  auto beh = std::make_unique<BIBS::testing::MockBehaviour>("b1");
+  auto bel = std::make_unique<BIBS::testing::MockBelief>("b1");
+
+  std::random_device rd;
+  std::default_random_engine eng(rd());
+  std::uniform_real_distribution<double> distr(0, 1);
+
+  double rel = distr(eng);
+  double act = distr(eng);
+  double bb = act * rel;
+
+  EXPECT_CALL(*bel, performingBehaviourRelationship(beh.get()));
+  ON_CALL(*bel, performingBehaviourRelationship(beh.get()))
+      .WillByDefault(testing::Return(rel));
+
+  AgentBeliefBehaviourTest a;
+
+  EXPECT_CALL(a, activation(5, bel.get()));
+  ON_CALL(a, activation(5, bel.get())).WillByDefault(testing::Return(act));
+
+  EXPECT_DOUBLE_EQ(a.beliefBehaviourW(bel.get(), beh.get(), 5), bb);
 }
