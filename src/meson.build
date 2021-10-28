@@ -20,7 +20,8 @@ bibs_sources = [
   'agent.cpp',
   'bibs.cpp',
   'behaviour.cpp',
-  'belief.cpp']
+  'belief.cpp',
+  'simulation.cpp']
 bibs = shared_library(
   'bibs',
   bibs_sources,

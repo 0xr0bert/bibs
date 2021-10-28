@@ -52,6 +52,61 @@ public:
    */
   virtual void run(sim_time_t nDays) = 0;
 };
+
+/**
+ * A sequential simulation (no multiprocessing).
+ */
+class SequentialSimulation : public ISimulation {
+protected:
+  /**
+   * The agents in the simulation.
+   */
+  std::vector<IAgent *> agents;
+
+  /**
+   * The (const) agents in the simulation.
+   */
+  std::vector<const IAgent *> constAgents;
+
+  /**
+   * The beliefs in the simulation.
+   */
+  std::vector<IBelief *> beliefs;
+
+  /**
+   * The (const) beliefs in the simulation.
+   */
+  std::vector<const IBelief *> constBeliefs;
+
+  /**
+   * The behaviours in the simulation.
+   */
+  std::vector<IBehaviour *> behaviours;
+
+  /**
+   * The const behaviours in the simulation.
+   */
+  std::vector<const IBehaviour *> constBehaviours;
+
+public:
+  /**
+   * Create a new sequential simulation
+   *
+   * @param agents The agents.
+   * @param beliefs The beliefs.
+   * @param behaviours The behaviours.
+   */
+  SequentialSimulation(std::vector<IAgent *> agents,
+                       std::vector<IBelief *> beliefs,
+                       std::vector<IBehaviour *> behaviours);
+
+  /**
+   * Run the simulation for n days.
+   *
+   * @param nDays the number of days.
+   */
+  virtual void run(sim_time_t nDays);
+};
 } // namespace BIBS
 
 #endif // BIBS_SIMULATION_H
