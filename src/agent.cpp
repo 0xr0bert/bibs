@@ -117,5 +117,11 @@ double BIBS::Agent::contextualBeliefBehaviour(const IBelief *bel,
 
 double BIBS::Agent::contextualBehaviour(const IBehaviour *b,
                                         const sim_time_t t) const {
-  throw std::logic_error("Not implemented");
+  double returnVal = 0.0;
+
+  for (const auto &[belief, _] : activationMap.at(t)) {
+    returnVal += contextualBeliefBehaviour(belief, b, t);
+  }
+
+  return returnVal;
 }

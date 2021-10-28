@@ -284,14 +284,14 @@ protected:
    * Calculates and returns the (contextual) impetus to perform behaviour
    * beh given the beliefs you hold at time t.
    *
-   * @param beh The behaviour.
+   * @param b The behaviour.
    * @param t The time.
    * @return The (contextual) impetus to perform the behaviour.
    * @exception std::out_of_range If this agent does not hold the belief, or if
    *   there is not a performingBehaviourRelationship defined for that belief
-   *   and behaviour.
+   *   and behaviour, or if the time is not found.
    */
-  virtual double contextualBehaviour(const IBehaviour *beh,
+  virtual double contextualBehaviour(const IBehaviour *b,
                                      const sim_time_t t) const;
 };
 } // namespace BIBS

@@ -16,6 +16,7 @@
  */
 
 #include "bibs/agent.hpp"
+#include "bibs/behaviour.hpp"
 #include "bibs/belief.hpp"
 
 #include "agent.hpp"
@@ -464,4 +465,53 @@ TEST(Agent, contextualBeliefBehaviour) {
 
   EXPECT_DOUBLE_EQ(a.contextualBeliefBehaviourW(bel.get(), beh.get(), 5),
                    contextBB);
+}
+
+class AgentContextualBehaviourTest : public BIBS::Agent {
+public:
+  using Agent::Agent;
+
+  MOCK_METHOD(double, contextualBeliefBehaviour,
+              (const BIBS::IBelief *bel, const BIBS::IBehaviour *beh,
+               const BIBS::sim_time_t t),
+              (const, override));
+
+  double contextualBehaviourW(const BIBS::IBehaviour *b,
+                              const BIBS::sim_time_t t) const {
+    return contextualBehaviour(b, t);
+  }
+};
+
+TEST(Agent, contextualBehaviour) {
+  std::unique_ptr<BIBS::IBelief> beliefs[5];
+  std::map<const BIBS::IBelief *, double> activations;
+  double cbb[5];
+  double cb = 0.0;
+
+  std::random_device rd;
+  std::default_random_engine eng(rd());
+  std::uniform_real_distribution<double> distr(0, 1);
+
+  for (size_t i = 0; i < 5; ++i) {
+    beliefs[i] = std::make_unique<BIBS::testing::MockBelief>(
+        boost::str(boost::format("b%1%") % i));
+    activations.emplace(beliefs[i].get(), 0);
+    cbb[i] = distr(eng);
+    cb += cbb[i];
+  }
+
+  std::map<BIBS::sim_time_t, std::map<const BIBS::IBelief *, double>>
+      activationTimes;
+  activationTimes.emplace(5, activations);
+
+  AgentContextualBehaviourTest a(activationTimes);
+  auto beh = std::make_unique<BIBS::testing::MockBehaviour>("b1");
+
+  for (size_t i = 0; i < 5; ++i) {
+    EXPECT_CALL(a, contextualBeliefBehaviour(beliefs[i].get(), beh.get(), 5));
+    ON_CALL(a, contextualBeliefBehaviour(beliefs[i].get(), beh.get(), 5))
+        .WillByDefault(testing::Return(cbb[i]));
+  }
+
+  EXPECT_DOUBLE_EQ(a.contextualBehaviourW(beh.get(), 5), cb);
 }
