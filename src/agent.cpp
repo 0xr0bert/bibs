@@ -22,7 +22,7 @@
 
 #include <boost/uuid/uuid_generators.hpp>
 #include <cmath>
-#include <gmock/gmock-actions.h>
+#include <limits>
 #include <memory>
 #include <random>
 #include <stdexcept>
@@ -168,7 +168,7 @@ double BIBS::Agent::utility(const IBehaviour *b, const sim_time_t t) const {
 
 void BIBS::Agent::perform(const sim_time_t t,
                           const std::vector<const IBehaviour *> &bs) {
-  double maxUtility = -DBL_MAX;
+  double maxUtility = std::numeric_limits<double>::lowest();
   const IBehaviour *maxBehaviour = nullptr;
 
   std::vector<const IBehaviour *> positiveBehaviours;
