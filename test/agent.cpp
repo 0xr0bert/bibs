@@ -33,6 +33,7 @@
 #include <memory>
 #include <random>
 #include <stdexcept>
+#include <vector>
 
 TEST(MockAgent, UUIDConstructor) {
   auto uuid = boost::uuids::random_generator_mt19937()();
@@ -706,4 +707,32 @@ TEST(Agent, performWhenTwoPositive) {
 
   EXPECT_TRUE(a.performed(t) == bsPtrVector[1] ||
               a.performed(t) == bsPtrVector[2]);
+}
+
+TEST(IAgent, tick) {
+  BIBS::testing::MockAgent a((boost::uuids::random_generator_mt19937()()));
+  BIBS::sim_time_t t = 5;
+
+  std::vector<BIBS::IBehaviour> behs;
+  std::vector<const BIBS::IBehaviour *> behsPtrs;
+
+  for (size_t i = 0; i < 4; ++i) {
+    behs.push_back(
+        BIBS::testing::MockBehaviour(boost::str(boost::format("b%1%") % i)));
+    behsPtrs.push_back(&behs[i]);
+  }
+
+  EXPECT_CALL(a, perform(t, behsPtrs));
+
+  std::vector<std::unique_ptr<BIBS::testing::MockBelief>> bels;
+  std::vector<const BIBS::IBelief *> belsPtrs;
+
+  for (size_t i = 0; i < 4; ++i) {
+    bels.push_back(std::make_unique<BIBS::testing::MockBelief>(
+        boost::str(boost::format("b%1%") % i)));
+    belsPtrs.push_back(bels[i].get());
+    EXPECT_CALL(a, updateActivation(t, bels[i].get()));
+  }
+
+  a.tick(t, behsPtrs, belsPtrs);
 }

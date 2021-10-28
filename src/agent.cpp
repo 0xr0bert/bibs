@@ -33,7 +33,11 @@ BIBS::IAgent::IAgent(const boost::uuids::uuid uuid) : uuid(uuid) {}
 void BIBS::IAgent::tick(const sim_time_t t,
                         const std::vector<const IBehaviour *> &behs,
                         const std::vector<const IBelief *> &bels) {
-  throw std::logic_error("Not implemented");
+  for (const auto &bel : bels) {
+    updateActivation(t, bel);
+  }
+
+  perform(t, behs);
 }
 
 BIBS::Agent::Agent()
