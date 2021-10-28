@@ -27,7 +27,6 @@
 #include <boost/uuid/random_generator.hpp>
 #include <boost/uuid/uuid_generators.hpp>
 #include <cstdio>
-#include <gmock/gmock-actions.h>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 #include <memory>
