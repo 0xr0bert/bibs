@@ -152,7 +152,8 @@ public:
    * @return The activation.
    * @exception std::out_of_range If the time or belief not found.
    */
-  double activation(const sim_time_t t, const IBelief *b) const override;
+  virtual double activation(const sim_time_t t,
+                            const IBelief *b) const override;
 
   /**
    * Gets the behaviour of the agent at a time.
@@ -160,7 +161,7 @@ public:
    * @param t The time.
    * @return The performed behaviour.
    */
-  const IBehaviour *performed(const sim_time_t t) const override;
+  virtual const IBehaviour *performed(const sim_time_t t) const override;
 
   /**
    * Adds a behaviour to the performedMap.
@@ -179,7 +180,7 @@ public:
    * @return The weight of relationship.
    * @exception std::out_of_range if this agent is not friends with a.
    */
-  double friendWeight(const IAgent *a) const;
+  virtual double friendWeight(const IAgent *a) const;
 
   /**
    * Sets the weight of relationship between this agent and another agent a.
@@ -187,7 +188,7 @@ public:
    * @param a The other agent.
    * @param w The new weight.
    */
-  void setFriendWeight(const IAgent *a, double w);
+  virtual void setFriendWeight(const IAgent *a, double w);
 
   /**
    * The amount the activation of b changes (multiplicative) at each time step.
@@ -206,7 +207,7 @@ public:
    * @param b The belief.
    * @param td The new time delta.
    */
-  void setTimeDelta(const IBelief *b, const double td);
+  virtual void setTimeDelta(const IBelief *b, const double td);
 
   /**
    * Updates the activation of the belief at time t.
