@@ -25,6 +25,7 @@
 #include <gmock/gmock-actions.h>
 #include <memory>
 #include <stdexcept>
+#include <vector>
 
 BIBS::IAgent::IAgent(const boost::uuids::uuid uuid) : uuid(uuid) {}
 
@@ -152,4 +153,9 @@ double BIBS::Agent::environment(const IBehaviour *b, const sim_time_t t) const {
 
 double BIBS::Agent::utility(const IBehaviour *b, const sim_time_t t) const {
   return contextualBehaviour(b, t) + environment(b, t);
+}
+
+void BIBS::Agent::perform(const sim_time_t t,
+                          const std::vector<const IBehaviour *> &bs) {
+  throw std::logic_error("Not implemented");
 }

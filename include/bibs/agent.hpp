@@ -85,6 +85,15 @@ public:
    * @return The performed behaviour.
    */
   virtual const IBehaviour *performed(const sim_time_t t) const = 0;
+
+  /**
+   * Choose and perform an action from the provided set of all actions at time t
+   *
+   * @param t The time.
+   * @param bs The behaviours.
+   */
+  virtual void perform(const sim_time_t t,
+                       const std::vector<const IBehaviour *> &bs) = 0;
 };
 
 /**
@@ -219,6 +228,15 @@ public:
    * @param b The belief.
    */
   virtual void updateActivation(const sim_time_t t, const IBelief *b) override;
+
+  /**
+   * Choose and perform an action from the provided set of all actions at time t
+   *
+   * @param t The time.
+   * @param bs The behaviours.
+   */
+  virtual void perform(const sim_time_t t,
+                       const std::vector<const IBehaviour *> &bs) override;
 
 protected:
   /**
