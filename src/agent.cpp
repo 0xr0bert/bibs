@@ -126,6 +126,5 @@ double BIBS::Agent::contextualBehaviour(const IBehaviour *b,
   return returnVal;
 }
 
-const BIBS::IBelief **BIBS::Agent::heldBeliefs(const sim_time_t t) const {
-  throw std::logic_error("Not implemented");
-}
+std::unique_ptr<const BIBS::IBelief *>
+BIBS::Agent::heldBeliefs(const sim_time_t t) const {}

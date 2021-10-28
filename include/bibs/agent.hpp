@@ -34,6 +34,7 @@
 
 #include <boost/uuid/uuid.hpp>
 #include <map>
+#include <memory>
 
 namespace BIBS {
 /**
@@ -301,7 +302,8 @@ protected:
    * @return A C-style array terminated by a nullptr of held beliefs.
    * @exception std::out_of_range If the time is not found.
    */
-  virtual const IBelief **heldBeliefs(const sim_time_t t) const;
+  virtual std::unique_ptr<const IBelief *>
+  heldBeliefs(const sim_time_t t) const;
 };
 } // namespace BIBS
 
