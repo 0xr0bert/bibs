@@ -149,3 +149,7 @@ BIBS::Agent::heldBeliefs(const sim_time_t t) const {
 double BIBS::Agent::environment(const IBehaviour *b, const sim_time_t t) const {
   return 0.0;
 }
+
+double BIBS::Agent::utility(const IBehaviour *b, const sim_time_t) const {
+  throw std::logic_error("Not implemented");
+}

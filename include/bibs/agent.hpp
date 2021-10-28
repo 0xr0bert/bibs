@@ -313,6 +313,17 @@ protected:
    * @return The impetus to perform behaviour b at time t.
    */
   virtual double environment(const IBehaviour *b, const sim_time_t t) const;
+
+  /**
+   * Calculates the utility to perform a behaviour b at time t.
+   *
+   * Defined as contextualBehaviour(b, t) + environment(b, t)
+   *
+   * @param b The behaviour.
+   * @param t The time.
+   * @return t The utility.
+   */
+  virtual double utility(const IBehaviour *b, const sim_time_t) const;
 };
 } // namespace BIBS
 
