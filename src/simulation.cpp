@@ -18,6 +18,7 @@
 #include "bibs/simulation.hpp"
 #include "bibs/agent.hpp"
 #include "bibs/behaviour.hpp"
+#include "bibs/bibs.hpp"
 #include <iterator>
 #include <stdexcept>
 #include <vector>
@@ -33,5 +34,9 @@ BIBS::SequentialSimulation::SequentialSimulation(
 }
 
 void BIBS::SequentialSimulation::run(sim_time_t nDays) {
-  throw std::logic_error("Not implemented");
+  for (sim_time_t t = 0; t < nDays; ++t) {
+    for (auto &agent : agents) {
+      agent->tick(t, constBehaviours, constBeliefs);
+    }
+  }
 }
