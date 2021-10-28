@@ -74,8 +74,10 @@ void BIBS::Agent::setFriendWeight(const IAgent *a, double w) {
 double BIBS::Agent::contextualise(const IBelief *b, const sim_time_t t) const {
   double value_to_exp = 0.0;
 
-  for (auto const &[b2, act] : activationMap.at(t)) {
-    value_to_exp += act * b->beliefRelationship(b2);
+  std::vector<const IBelief *> bs = heldBeliefs(t);
+
+  for (const auto &b2 : bs) {
+    value_to_exp += activation(t, b2) * b->beliefRelationship(b2);
   }
 
   return std::exp(value_to_exp);

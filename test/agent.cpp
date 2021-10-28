@@ -220,6 +220,13 @@ class AgentWithContextualiseWrapper : public BIBS::Agent {
 public:
   using Agent::Agent;
 
+  MOCK_METHOD(double, activation,
+              (const BIBS::sim_time_t t, const BIBS::IBelief *b),
+              (const, override));
+
+  MOCK_METHOD(std::vector<const BIBS::IBelief *>, heldBeliefs,
+              (const BIBS::sim_time_t t), (const, override));
+
   double contextualiseW(const BIBS::IBelief *b,
                         const BIBS::sim_time_t t) const {
     return contextualise(b, t);
@@ -254,11 +261,22 @@ TEST(Agent, contextualise) {
         .WillByDefault(testing::Return(rels[i]));
   }
 
-  std::map<BIBS::sim_time_t, std::map<const BIBS::IBelief *, double>>
-      tActivationMap;
-  tActivationMap.emplace(2, activationMap);
+  auto a = AgentWithContextualiseWrapper();
 
-  auto a = AgentWithContextualiseWrapper(tActivationMap);
+  std::vector<const BIBS::IBelief *> beliefs(5);
+  int i = 0;
+
+  for (const auto &[belief, act] : activationMap) {
+    beliefs[i] = belief;
+
+    EXPECT_CALL(a, activation(2, belief));
+    ON_CALL(a, activation(2, belief)).WillByDefault(testing::Return(act));
+
+    ++i;
+  }
+
+  EXPECT_CALL(a, heldBeliefs(2));
+  ON_CALL(a, heldBeliefs(2)).WillByDefault(testing::Return(beliefs));
 
   double value_to_exp = 0.0;
 
