@@ -16,6 +16,7 @@
  */
 
 #include "bibs/agent.hpp"
+#include "bibs/behaviour.hpp"
 #include "bibs/belief.hpp"
 #include "bibs/bibs.hpp"
 
@@ -143,4 +144,8 @@ BIBS::Agent::heldBeliefs(const sim_time_t t) const {
   }
 
   return returnVal;
+}
+
+double BIBS::Agent::environment(const IBehaviour *b, const sim_time_t t) const {
+  return 0.0;
 }

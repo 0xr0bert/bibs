@@ -303,6 +303,16 @@ protected:
    * @exception std::out_of_range If the time is not found.
    */
   virtual std::vector<const IBelief *> heldBeliefs(const sim_time_t t) const;
+
+  /**
+   * Gets the impetus to perform a behaviour due to the environment of this
+   * agent.
+   *
+   * @param b The behaviour.
+   * @param t The time.
+   * @return The impetus to perform behaviour b at time t.
+   */
+  virtual double environment(const IBehaviour *b, const sim_time_t t) const;
 };
 } // namespace BIBS
 

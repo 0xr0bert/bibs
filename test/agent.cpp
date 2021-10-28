@@ -564,3 +564,20 @@ TEST(Agent, heldBeliefs) {
 
   EXPECT_EQ(bs.size(), 5);
 }
+
+class AgentEnvironmentTest : public BIBS::Agent {
+public:
+  using Agent::Agent;
+
+  double environmentW(const BIBS::IBehaviour *b,
+                      const BIBS::sim_time_t t) const {
+    return environment(b, t);
+  }
+};
+
+TEST(Agent, environment) {
+  AgentEnvironmentTest a;
+  BIBS::testing::MockBehaviour b("b1");
+
+  EXPECT_EQ(a.environmentW(&b, rand()), 0.0);
+}
