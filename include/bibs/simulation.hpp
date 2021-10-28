@@ -23,7 +23,7 @@
  * @copyright GPL-3.0-or-later
  *
  * This module contains an ISimulation interface and a SequentialSimulation
- * implementation
+ * implementation.
  */
 
 #ifndef BIBS_SIMULATION_H
@@ -38,17 +38,17 @@
 namespace BIBS {
 
 /**
- * The interface for a simulation
+ * The interface for a simulation.
  */
 class ISimulation {
 public:
   /**
-   * Destroy ISimulation
+   * Destroy ISimulation.
    */
   virtual ~ISimulation() {}
 
   /**
-   * Run the simulation for n days
+   * Run the simulation for n days.
    */
   virtual void run(sim_time_t nDays) = 0;
 };
